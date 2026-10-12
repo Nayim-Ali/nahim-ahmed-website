@@ -1,0 +1,36 @@
+---
+/** MediaCard — one item in the media section. Videos become click-to-play; others link out. */
+import type { MediaItem } from '../content/content';
+import MediaEmbed from './MediaEmbed.astro';
+interface Props { item: MediaItem; index?: number }
+const { item, index = 0 } = Astro.props;
+const labels: Record<MediaItem['type'], string> = { video: 'Video', article: 'Article', podcast: 'Podcast', talk: 'Talk' };
+---
+<article class:list={['mc reveal', `mc--${item.type}`, { 'mc--featured': item.featured, 'mc--ph': item.placeholder }]} style={`--d:${(index % 3) * 80}ms`}>
+  {item.youtubeId ? (
+    <MediaEmbed youtubeId={item.youtubeId} title={item.title} poster={item.image?.src} />
+  ) : item.image ? (
+    <div class="ph mc__img" data-label={item.image.alt}>
+      <img src={item.image.src} alt={item.image.alt} loading="lazy" decoding="async" width="900" height="600" />
+    </div>
+  ) : null}
+  <div class="mc__body">
+    <p class="mc__meta"><span>{labels[item.type]}</span>{item.date && <span> · {item.date}</span>}</p>
+    <h3 class="mc__title">
+      {item.href ? <a href={item.href} target="_blank" rel="noopener">{item.title}</a> : item.title}
+    </h3>
+    <p class="mc__source">{item.source}</p>
+  </div>
+</article>
+<style>
+  .mc { display: grid; align-content: start; gap: 1rem; border-top: 1.5px solid var(--ink); padding-top: 1rem; }
+  .mc--ph { opacity: 0.6; border-top-style: dashed; }
+  .mc__img { aspect-ratio: 16 / 10; }
+  .mc__body { display: grid; gap: 0.35rem; }
+  .mc__meta { font-size: var(--t-xs); color: var(--amber-deep); font-weight: 600; }
+  .mc__title { font-size: var(--t-md); line-height: 1.1; }
+  .mc__title a { text-decoration: none; }
+  .mc__title a:hover { text-decoration: underline; text-decoration-color: var(--amber); }
+  .mc__source { font-size: var(--t-sm); color: var(--ink-3); }
+  .mc--featured .mc__title { font-size: var(--t-lg); }
+</style>

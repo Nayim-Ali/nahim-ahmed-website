@@ -1,0 +1,31 @@
+---
+import { media } from '../content/content';
+import MediaCard from './MediaCard.astro';
+const featured = media.items.find((m) => m.featured);
+const rest = media.items.filter((m) => m !== featured);
+---
+<section id="media" class="section media" aria-labelledby="media-title">
+  <div class="wrap">
+    <div class="media__head">
+      <h2 id="media-title" class="media__title reveal">{media.heading}</h2>
+      <p class="lede reveal" style="--d:80ms">{media.intro}</p>
+    </div>
+    <div class="media__grid">
+      {featured && <div class="media__featured"><MediaCard item={featured} /></div>}
+      <div class="media__list">
+        {rest.map((m, i) => <MediaCard item={m} index={i} />)}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .media__head { display: grid; gap: 1rem; margin-bottom: 3rem; }
+  .media__title { font-size: var(--t-2xl); }
+  .media__grid { display: grid; gap: 3rem; }
+  .media__list { display: grid; gap: 2rem; }
+  @media (min-width: 640px) { .media__list { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) {
+    .media__grid { grid-template-columns: 7fr 5fr; gap: clamp(3rem, 5vw, 5rem); align-items: start; }
+    .media__list { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,25 @@
+---
+import Base from './Base.astro';
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+---
+<Base title={title} description={description}>
+  <article class="legal">
+    <div class="wrap legal__inner">
+      <h1 class="legal__title">{title}</h1>
+      <div class="legal__body"><slot /></div>
+    </div>
+  </article>
+</Base>
+<style>
+  .legal { padding: 9rem 0 var(--section); }
+  .legal__inner { max-width: 68ch; }
+  .legal__title { font-size: var(--t-2xl); margin-bottom: 2.5rem; }
+  .legal__body :global(h2) { font-size: var(--t-lg); margin: 2.5rem 0 1rem; }
+  .legal__body :global(p) { color: var(--ink-2); margin-bottom: 1rem; max-width: none; }
+  .legal__body :global(ul) { list-style: disc; padding-left: 1.25rem; color: var(--ink-2); margin-bottom: 1rem; }
+</style>
+<style is:global>
+  /* Legal pages have no hero, so the nav needs its solid state from the start */
+  body:has(.legal) .nav { color: var(--ink); background: rgba(247,243,236,0.9); box-shadow: 0 1px 0 var(--line); }
+</style>

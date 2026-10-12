@@ -1,0 +1,259 @@
+---
+import { site } from '../content/site';
+import { hero } from '../content/content';
+import Button from './Button.astro';
+const v = site.hero;
+---
+
+<section class="hero" data-hero aria-labelledby="hero-title">
+  <div class="hero__media" aria-hidden="true">
+    <!--
+      The video is NOT loaded on first paint. Sources are set from data attributes after
+      window load (or immediately if the page is already loaded), so the poster shows first
+      and the rest of the page isn't blocked. See script below.
+    -->
+    <video
+      class="hero__video"
+      poster={v.poster}
+      muted
+      loop
+      playsinline
+      preload="none"
+      data-hero-video
+      data-src-desktop={v.videoDesktop}
+      data-src-mobile={v.videoMobile || v.videoDesktop}
+      data-src-webm={v.videoWebm}
+    >
+      {v.captions && <track kind="captions" src={v.captions} srclang="en" label="English" default />}
+    </video>
+    <div class="hero__poster" style={`background-image:url('${v.poster}')`} data-hero-poster></div>
+    <div class="hero__overlay"></div>
+  </div>
+
+  <div class="wrap hero__content">
+    <h1 id="hero-title" class="hero__title lines">
+      {hero.headline.split(' ').map((w, i, arr) => (
+        <span>{w}{i < arr.length - 1 ? ' ' : ''}</span>
+      ))}
+    </h1>
+    <div class="hero__meta reveal" style="--d:300ms">
+      <p class="hero__name">{hero.name}</p>
+      <p class="hero__desc">{hero.descriptor}</p>
+    </div>
+    <div class="hero__actions reveal" style="--d:420ms">
+      <Button href={hero.primaryCta.href} size="lg">{hero.primaryCta.label}</Button>
+      <Button href={hero.secondaryCta.href} variant="light" size="lg">{hero.secondaryCta.label}</Button>
+    </div>
+  </div>
+
+  <div class="hero__bottom wrap">
+    <a href="#intro" class="hero__scroll" aria-label="Scroll to introduction">
+      <span>{hero.scrollHint}</span>
+      <span class="hero__scroll-line"></span>
+    </a>
+    {v.hasAudio && (
+      <button class="hero__sound" type="button" aria-pressed="false" data-hero-sound hidden>
+        <span class="hero__sound-icon" aria-hidden="true"></span>
+        <span data-hero-sound-label>Sound on</span>
+      </button>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    color: var(--paper);
+    background: var(--ink);
+    overflow: hidden;
+  }
+  .hero__media { position: absolute; inset: 0; }
+  .hero__video, .hero__poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero__poster {
+    background-size: cover;
+    background-position: center;
+    background-color: #2a2622;
+    transition: opacity 1s var(--ease);
+  }
+  .hero__video { opacity: 0; transition: opacity 1s var(--ease); }
+  .hero.is-playing .hero__video { opacity: 1; }
+  .hero.is-playing .hero__poster { opacity: 0; }
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgba(28,26,23,0.82) 0%, rgba(28,26,23,0.35) 45%, rgba(28,26,23,0.25) 100%);
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    align-self: end;
+    padding-top: 8rem;
+    padding-bottom: clamp(2rem, 6vh, 5rem);
+    display: grid;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .hero__title {
+    font-size: var(--t-3xl);
+    font-weight: 600;
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    max-width: 12ch;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.25);
+  }
+  .hero__title > span { display: inline-block; margin-right: 0.22em; }
+  .hero__meta { display: grid; gap: 0.35rem; }
+  .hero__name {
+    font-family: var(--display);
+    font-size: var(--t-md);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .hero__desc {
+    font-size: var(--t-base);
+    color: rgba(247,243,236,0.8);
+    max-width: 40ch;
+  }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+  .hero__bottom {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.5rem;
+  }
+  .hero__scroll {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    font-size: var(--t-xs);
+    letter-spacing: 0.08em;
+    color: rgba(247,243,236,0.75);
+  }
+  .hero__scroll-line {
+    width: 1px;
+    height: 32px;
+    background: currentColor;
+    transform-origin: top;
+    animation: scrollpulse 2.2s var(--ease) infinite;
+  }
+  @keyframes scrollpulse {
+    0% { transform: scaleY(0); opacity: 0; }
+    40% { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(1) translateY(100%); opacity: 0; }
+  }
+
+  .hero__sound {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(28,26,23,0.45);
+    border: 1px solid rgba(247,243,236,0.4);
+    color: var(--paper);
+    border-radius: 999px;
+    padding: 0.55rem 0.95rem;
+    font-size: var(--t-xs);
+    cursor: pointer;
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+  .hero__sound-icon {
+    width: 14px; height: 14px;
+    display: flex; align-items: flex-end; gap: 2px;
+  }
+  .hero__sound-icon::before, .hero__sound-icon::after {
+    content: ''; width: 3px; background: currentColor; height: 40%;
+  }
+  .hero__sound-icon::after { height: 100%; }
+  .hero__sound[aria-pressed="true"] .hero__sound-icon::before { animation: bars 0.8s ease-in-out infinite alternate; }
+  .hero__sound[aria-pressed="true"] .hero__sound-icon::after { animation: bars 0.6s ease-in-out infinite alternate-reverse; }
+  @keyframes bars { from { height: 30%; } to { height: 100%; } }
+
+  @media (max-width: 600px) {
+    .hero__actions :global(.btn) { width: 100%; justify-content: center; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__scroll-line { animation: none; }
+  }
+</style>
+
+<script>
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+  const soundBtn = document.querySelector<HTMLButtonElement>('[data-hero-sound]');
+  const soundLabel = document.querySelector<HTMLElement>('[data-hero-sound-label]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const saveData = (navigator as any).connection?.saveData === true;
+
+  function loadAndPlay() {
+    if (!video || !hero) return;
+    const isSmall = window.matchMedia('(max-width: 768px)').matches;
+    const mp4 = isSmall ? video.dataset.srcMobile : video.dataset.srcDesktop;
+    const webm = video.dataset.srcWebm;
+
+    if (webm) {
+      const s = document.createElement('source');
+      s.src = webm; s.type = 'video/webm';
+      video.appendChild(s);
+    }
+    if (mp4) {
+      const s = document.createElement('source');
+      s.src = mp4; s.type = 'video/mp4';
+      video.appendChild(s);
+    }
+    video.muted = true; // required for autoplay
+    video.load();
+
+    const onPlaying = () => {
+      hero.classList.add('is-playing');
+      if (soundBtn) soundBtn.hidden = false;
+    };
+    video.addEventListener('playing', onPlaying, { once: true });
+    video.addEventListener('error', () => hero.classList.remove('is-playing'), { once: true });
+
+    video.play().catch(() => {
+      // Autoplay blocked or no source yet: stay on the poster silently.
+      hero.classList.remove('is-playing');
+    });
+  }
+
+  // Don't autoplay for reduced motion or data saver; keep the poster.
+  if (!reduce && !saveData && video) {
+    if (document.readyState === 'complete') loadAndPlay();
+    else window.addEventListener('load', loadAndPlay, { once: true });
+
+    // Pause when scrolled out of view to save battery
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!video.src && !video.querySelector('source')) return;
+        if (e.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      },
+      { threshold: 0.05 },
+    );
+    if (hero) io.observe(hero);
+  }
+
+  // Sound toggle
+  soundBtn?.addEventListener('click', () => {
+    if (!video) return;
+    const on = video.muted;
+    video.muted = !on;
+    soundBtn.setAttribute('aria-pressed', String(on));
+    if (soundLabel) soundLabel.textContent = on ? 'Sound off' : 'Sound on';
+    if (on) video.play().catch(() => {});
+  });
+</script>

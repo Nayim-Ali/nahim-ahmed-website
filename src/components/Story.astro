@@ -1,0 +1,127 @@
+---
+import { story } from '../content/content';
+---
+
+<section id="story" class="story" aria-labelledby="story-title">
+  <div class="wrap story__head">
+    <p class="story__kicker reveal">His story</p>
+    <h2 id="story-title" class="story__title reveal" style="--d:80ms">{story.heading}</h2>
+    <p class="lede reveal" style="--d:160ms">{story.intro}</p>
+  </div>
+
+  <ol class="story__chapters">
+    {story.chapters.map((ch, i) => (
+      <li class:list={['chapter', { 'chapter--img': !!ch.image, 'chapter--flip': i % 2 === 1 }]} id={`story-${ch.id}`}>
+        <div class="wrap chapter__grid">
+          <div class="chapter__text">
+            <p class="chapter__kicker reveal">{ch.kicker}</p>
+            <h3 class="chapter__statement reveal" style="--d:80ms">{ch.statement}</h3>
+            <div class="chapter__body">
+              {ch.body.map((p, j) => <p class="reveal" style={`--d:${160 + j * 80}ms`}>{p}</p>)}
+            </div>
+          </div>
+          {ch.image && (
+            <figure class="chapter__figure reveal-img" data-parallax>
+              <div class="ph chapter__img" data-label={ch.image.alt}>
+                <img src={ch.image.src} alt={ch.image.alt} loading="lazy" decoding="async" width="1200" height="1500" />
+              </div>
+              {ch.image.caption && <figcaption class="small muted">{ch.image.caption}</figcaption>}
+            </figure>
+          )}
+        </div>
+      </li>
+    ))}
+  </ol>
+
+  <div class="wrap story__timeline">
+    <h3 class="story__timeline-title reveal">In order</h3>
+    <ol class="timeline">
+      {story.timeline.map((t, i) => (
+        <li class="timeline__item reveal" style={`--d:${i * 60}ms`}>
+          <span class="timeline__year">{t.year}</span>
+          <span class="timeline__label">{t.label}</span>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .story { background: var(--cream); padding-block: var(--section) 0; }
+  .story__head { display: grid; gap: 1.25rem; margin-bottom: var(--section-sm); }
+  .story__kicker { font-family: var(--display); font-weight: 600; color: var(--amber); }
+  .story__title { font-size: var(--t-2xl); max-width: 12ch; }
+
+  .chapter { padding-block: var(--section-sm); border-top: 1px solid var(--line); }
+  .chapter__grid { display: grid; gap: 2.5rem; align-items: center; }
+  .chapter__text { display: grid; gap: 1.25rem; }
+  .chapter__kicker { font-family: var(--display); font-weight: 600; font-size: var(--t-sm); color: var(--amber-deep); }
+  .chapter__statement { font-size: var(--t-xl); max-width: 16ch; }
+  .chapter__body { display: grid; gap: 1rem; color: var(--ink-2); }
+  .chapter__body p { max-width: 48ch; }
+
+  .chapter__figure { margin: 0; display: grid; gap: 0.75rem; }
+  .chapter__img { aspect-ratio: 4 / 5; }
+  .chapter__img img { will-change: transform; }
+
+  /* Chapters without images get bigger statements and take the full width */
+  .chapter:not(.chapter--img) .chapter__statement { font-size: var(--t-2xl); max-width: 14ch; }
+  .chapter:not(.chapter--img) .chapter__grid { grid-template-columns: 1fr; }
+
+  @media (min-width: 900px) {
+    .chapter--img .chapter__grid { grid-template-columns: 6fr 5fr; gap: clamp(3rem, 7vw, 7rem); }
+    .chapter--flip.chapter--img .chapter__grid { grid-template-columns: 5fr 6fr; }
+    .chapter--flip.chapter--img .chapter__text { order: 2; }
+    .chapter--flip.chapter--img .chapter__figure { order: 1; }
+    .chapter:not(.chapter--img) .chapter__text { grid-template-columns: 1fr 1fr; align-items: end; }
+    .chapter:not(.chapter--img) .chapter__kicker { grid-column: 1 / -1; }
+  }
+
+  .story__timeline { padding-block: var(--section-sm) var(--section); border-top: 1px solid var(--line); }
+  .story__timeline-title { font-size: var(--t-lg); margin-bottom: 2rem; }
+  .timeline { display: grid; border-left: 1.5px solid var(--ink); }
+  .timeline__item {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1rem 0 1rem 1.5rem;
+    position: relative;
+  }
+  .timeline__item::before {
+    content: '';
+    position: absolute;
+    left: -6px; top: 1.45rem;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+  .timeline__year { font-family: var(--display); font-weight: 600; font-size: var(--t-sm); color: var(--ink-3); }
+  .timeline__label { font-size: var(--t-base); }
+  @media (min-width: 760px) {
+    .timeline__item { grid-template-columns: 9rem 1fr; gap: 1.5rem; align-items: baseline; }
+  }
+</style>
+
+<script>
+  /* Subtle parallax on story photos: image drifts ~6% as it crosses the viewport */
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const figs = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax] img'));
+  if (!reduce && figs.length) {
+    let ticking = false;
+    const run = () => {
+      const vh = window.innerHeight;
+      for (const img of figs) {
+        const r = img.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) continue;
+        const p = (r.top + r.height / 2 - vh / 2) / vh; // -0.5 .. 0.5
+        img.style.transform = `translateY(${p * -6}%) scale(1.08)`;
+      }
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) { requestAnimationFrame(run); ticking = true; }
+    };
+    run();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  }
+</script>

@@ -1,0 +1,16 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { site } from '../content/site';
+---
+<Legal title="Privacy policy" description={`Privacy policy for ${site.name}'s website.`}>
+  <p><em>[PRIVACY POLICY — placeholder. Replace with a reviewed policy before launch. The outline below covers what this site actually does.]</em></p>
+  <h2>What this site collects</h2>
+  <p>If you fill in the booking form, the details you enter (name, email, organisation, phone, event details) are sent to {site.firstName} so he can reply to you. They are used for that purpose only.</p>
+  <h2>Cookies and analytics</h2>
+  <p>This site does not set cookies of its own. [If analytics are added, describe them here.] Embedded YouTube videos only load when you press play, and use YouTube's privacy-enhanced mode.</p>
+  <h2>Fonts</h2>
+  <p>Fonts are loaded from Google Fonts, which may record your IP address. [Self-host fonts if you'd prefer to avoid this.]</p>
+  <h2>Your rights</h2>
+  <p>You can ask for a copy of any personal data held about you, or ask for it to be deleted, by emailing <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+  <p>Last updated: [DATE]</p>
+</Legal>

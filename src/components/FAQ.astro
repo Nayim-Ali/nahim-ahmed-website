@@ -1,0 +1,34 @@
+---
+import { faq } from '../content/content';
+---
+<section id="faq" class="section section--cream faq" aria-labelledby="faq-title">
+  <div class="wrap faq__grid">
+    <h2 id="faq-title" class="faq__title reveal">{faq.heading}</h2>
+    <div class="faq__list">
+      {faq.items.map((f, i) => (
+        <details class="faq__item reveal" style={`--d:${i * 50}ms`} name="faq">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .faq__grid { display: grid; gap: 2rem; }
+  .faq__title { font-size: var(--t-xl); max-width: 10ch; }
+  .faq__list { border-top: 1.5px solid var(--ink); }
+  .faq__item { border-bottom: 1px solid var(--line); }
+  .faq__item summary {
+    cursor: pointer; list-style: none; padding: 1.25rem 2.5rem 1.25rem 0;
+    font-family: var(--display); font-weight: 600; font-size: var(--t-md); position: relative;
+  }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary::after {
+    content: '+'; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+    font-weight: 500; font-size: 1.5em; color: var(--amber); transition: transform 0.3s var(--ease);
+  }
+  .faq__item[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+  .faq__item p { padding: 0 0 1.5rem; color: var(--ink-2); max-width: 56ch; }
+  @media (min-width: 900px) { .faq__grid { grid-template-columns: 4fr 8fr; gap: var(--gutter); align-items: start; } }
+</style>

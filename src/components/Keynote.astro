@@ -1,0 +1,96 @@
+---
+import { keynote } from '../content/content';
+import Button from './Button.astro';
+import MediaEmbed from './MediaEmbed.astro';
+---
+
+<section id="keynote" class="section keynote" aria-labelledby="keynote-title">
+  <div class="wrap">
+    <p class="keynote__kicker reveal">{keynote.kicker}</p>
+    <h2 id="keynote-title" class="keynote__title lines">
+      <span class="keynote__quote">“{keynote.title}”</span>
+      <span class="keynote__tag">{keynote.tagline}</span>
+    </h2>
+
+    <div class="keynote__grid">
+      <div class="keynote__media reveal-img">
+        {keynote.media.youtubeId ? (
+          <MediaEmbed youtubeId={keynote.media.youtubeId} title={keynote.title} poster={keynote.media.poster} />
+        ) : (
+          <div class="ph keynote__img" data-label={keynote.media.alt}>
+            <img src={keynote.media.poster} alt={keynote.media.alt} loading="lazy" decoding="async" width="1600" height="1000" />
+          </div>
+        )}
+      </div>
+
+      <div class="keynote__text">
+        <div class="keynote__block reveal">
+          <h3>Where it comes from</h3>
+          {keynote.origin.map((p) => <p>{p}</p>)}
+        </div>
+        <div class="keynote__block reveal" style="--d:100ms">
+          <h3>What it's about</h3>
+          {keynote.about.map((p) => <p>{p}</p>)}
+        </div>
+        <div class="keynote__block reveal" style="--d:200ms">
+          <h3>What people take away</h3>
+          <ul class="keynote__list">
+            {keynote.takeaways.map((t) => <li>{t}</li>)}
+          </ul>
+        </div>
+        <div class="keynote__block keynote__block--meta reveal" style="--d:300ms">
+          <p><strong>Length:</strong> {keynote.duration}</p>
+          <p><strong>Good for:</strong> {keynote.idealFor.join(', ')}</p>
+        </div>
+        <div class="reveal" style="--d:360ms">
+          <Button href={keynote.cta.href} size="lg">{keynote.cta.label}</Button>
+        </div>
+      </div>
+    </div>
+
+    <div class="keynote__others">
+      <h3 class="keynote__others-title reveal">Also available</h3>
+      <div class="keynote__others-grid">
+        {keynote.otherKeynotes.map((k, i) => (
+          <article class="okn reveal" style={`--d:${i * 90}ms`}>
+            <h4>{k.title}</h4>
+            <p class="okn__sub">{k.sub}</p>
+            <p>{k.blurb}</p>
+            <p class="okn__meta">Good for: {k.idealFor}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .keynote { background: var(--paper); }
+  .keynote__kicker { font-family: var(--display); font-weight: 600; color: var(--amber); margin-bottom: 1rem; }
+  .keynote__title { font-size: var(--t-3xl); line-height: 0.92; margin-bottom: var(--section-sm); }
+  .keynote__quote { display: block; max-width: 9ch; }
+  .keynote__tag { display: block; font-size: 0.32em; font-weight: 500; color: var(--ink-2); margin-top: 0.6em; letter-spacing: -0.01em; }
+  .keynote__grid { display: grid; gap: 3rem; }
+  .keynote__img { aspect-ratio: 16 / 10; }
+  .keynote__text { display: grid; gap: 2rem; align-content: start; }
+  .keynote__block { display: grid; gap: 0.75rem; }
+  .keynote__block h3 { font-size: var(--t-md); }
+  .keynote__block p { color: var(--ink-2); max-width: 50ch; }
+  .keynote__list { display: grid; gap: 0.5rem; }
+  .keynote__list li { padding-left: 1.25rem; position: relative; color: var(--ink-2); }
+  .keynote__list li::before { content: ''; position: absolute; left: 0; top: 0.65em; width: 0.5rem; height: 2px; background: var(--amber); }
+  .keynote__block--meta p { font-size: var(--t-sm); }
+  .keynote__others { margin-top: var(--section); border-top: 1.5px solid var(--ink); padding-top: 2.5rem; }
+  .keynote__others-title { font-size: var(--t-lg); margin-bottom: 2rem; }
+  .keynote__others-grid { display: grid; gap: 2.5rem; }
+  .okn { display: grid; gap: 0.6rem; align-content: start; }
+  .okn h4 { font-size: var(--t-md); }
+  .okn__sub { font-family: var(--display); font-weight: 500; color: var(--amber-deep); }
+  .okn p { color: var(--ink-2); font-size: var(--t-sm); max-width: 44ch; }
+  .okn__meta { font-size: var(--t-xs); color: var(--ink-3); }
+  @media (min-width: 900px) {
+    .keynote__grid { grid-template-columns: 7fr 5fr; gap: clamp(3rem, 6vw, 6rem); align-items: start; }
+    .keynote__media { position: sticky; top: 6rem; }
+    .keynote__others-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  }
+</style>

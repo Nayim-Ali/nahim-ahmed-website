@@ -1,0 +1,21 @@
+---
+import { finalCta } from '../content/content';
+import Button from './Button.astro';
+---
+<section class="section section--dark final" aria-labelledby="final-title">
+  <div class="wrap final__inner">
+    <h2 id="final-title" class="final__title lines">
+      <span>{finalCta.line1}</span>
+      <span class="final__line2">{finalCta.line2}</span>
+    </h2>
+    <div class="reveal" style="--d:300ms">
+      <Button href={finalCta.cta.href} size="lg">{finalCta.cta.label}</Button>
+    </div>
+  </div>
+</section>
+<style>
+  .final { padding-block: clamp(5rem, 10vw, 8rem); }
+  .final__inner { display: grid; gap: 2.5rem; justify-items: start; }
+  .final__title { font-size: var(--t-2xl); max-width: 16ch; }
+  .final__line2 { color: var(--amber-soft); }
+</style>

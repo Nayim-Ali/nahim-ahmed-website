@@ -1,0 +1,57 @@
+---
+import { site } from '../content/site';
+import { footer } from '../content/content';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <p class="footer__name">{site.name}</p>
+      <p class="footer__blurb">{footer.blurb}</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Footer">
+      <ul>
+        {footer.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="footer__contact">
+      <ul>
+        <li><a href={site.social.linkedin} rel="me noopener" target="_blank">LinkedIn</a></li>
+        {site.social.instagram && <li><a href={site.social.instagram} rel="me noopener" target="_blank">Instagram</a></li>}
+        {site.social.x && <li><a href={site.social.x} rel="me noopener" target="_blank">X</a></li>}
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap footer__legal">
+    <p>© {year} {site.copyrightName}. All rights reserved.</p>
+    <ul>
+      {footer.legal.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--ink); color: var(--paper); padding-block: var(--section-sm) 2rem; }
+  .footer__grid { display: grid; gap: 2.5rem; }
+  .footer__name { font-family: var(--display); font-size: var(--t-md); font-weight: 600; }
+  .footer__blurb { margin-top: 0.75rem; color: rgba(247,243,236,0.7); max-width: 30ch; font-size: var(--t-sm); }
+  .footer ul { display: grid; gap: 0.6rem; }
+  .footer a { text-decoration: none; font-size: var(--t-sm); }
+  .footer a:hover { text-decoration: underline; }
+  .footer__legal {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(247,243,236,0.15);
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
+    font-size: var(--t-xs); color: rgba(247,243,236,0.6);
+  }
+  .footer__legal ul { display: flex; gap: 1.5rem; }
+  @media (min-width: 760px) {
+    .footer__grid { grid-template-columns: 2fr 1fr 1fr; }
+  }
+</style>

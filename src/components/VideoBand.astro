@@ -1,0 +1,58 @@
+---
+/**
+ * VideoBand — full-width looping video with one button over it (the treatment on the reference site).
+ * Autoplay, muted, loop, playsinline, lazy-loaded, poster fallback, reduced-motion aware.
+ * Props: video, poster, mobileVideo (optional), label, href, alt
+ */
+interface Props { video: string; mobileVideo?: string; poster: string; label: string; href: string; alt: string }
+const { video, mobileVideo, poster, label, href, alt } = Astro.props;
+---
+<div class="vband" data-vband>
+  <div class="ph vband__ph" data-label={alt}>
+    <img src={poster} alt="" loading="lazy" decoding="async" width="1920" height="1080" />
+  </div>
+  <video class="vband__video" muted loop playsinline preload="none" poster={poster} aria-label={alt}
+    data-src-desktop={video} data-src-mobile={mobileVideo || video}></video>
+  <a class="vband__btn" href={href}>{label}</a>
+</div>
+<style>
+  .vband { position: relative; aspect-ratio: 21 / 9; overflow: hidden; background: rgba(247,243,236,0.08); }
+  .vband__ph, .vband__video { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .vband__ph { background: rgba(247,243,236,0.08); outline: 1.5px dashed rgba(247,243,236,0.35); outline-offset: -1.5px; }
+  .vband__ph.has-img { outline: 0; }
+  .vband__ph::after { color: rgba(247,243,236,0.75); font-size: var(--t-base); align-content: start; padding-top: 1.5rem; }
+  .vband__video { object-fit: cover; opacity: 0; transition: opacity 0.8s var(--ease); }
+  .vband.is-playing .vband__video { opacity: 1; }
+  .vband__btn {
+    position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    background: var(--amber); color: var(--white); text-decoration: none;
+    font-family: var(--display); font-weight: 600; font-size: var(--t-md);
+    padding: 0.85em 1.8em; border-radius: 999px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+  .vband__btn:hover { background: var(--amber-deep); transform: translate(-50%, -50%) scale(1.04); }
+  @media (max-width: 700px) { .vband { aspect-ratio: 4 / 3; } }
+</style>
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const saveData = (navigator as any).connection?.saveData === true;
+  document.querySelectorAll<HTMLElement>('[data-vband]').forEach((band) => {
+    const video = band.querySelector<HTMLVideoElement>('video');
+    if (!video || reduce || saveData) return;
+    let loaded = false;
+    const load = () => {
+      if (loaded) return; loaded = true;
+      const small = window.matchMedia('(max-width: 768px)').matches;
+      const src = small ? video.dataset.srcMobile : video.dataset.srcDesktop;
+      if (!src) return;
+      video.src = src; video.muted = true; video.load();
+      video.addEventListener('playing', () => band.classList.add('is-playing'), { once: true });
+      video.play().catch(() => {});
+    };
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { load(); video.play().catch(() => {}); } else if (loaded) video.pause();
+    }, { rootMargin: '200px 0px', threshold: 0.05 });
+    io.observe(band);
+  });
+</script>

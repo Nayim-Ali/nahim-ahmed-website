@@ -1,0 +1,31 @@
+---
+/**
+ * SectionHeading — consistent heading block.
+ * Props: title, intro (optional), level (h2 default), align, size
+ */
+interface Props {
+  title: string;
+  intro?: string;
+  id?: string;
+  level?: 'h1' | 'h2' | 'h3';
+  size?: 'lg' | 'xl' | '2xl';
+  align?: 'left' | 'center';
+  class?: string;
+}
+const { title, intro, id, level = 'h2', size = 'xl', align = 'left', class: cls = '' } = Astro.props;
+const Tag = level;
+---
+
+<header class:list={['sh', `sh--${align}`, cls]}>
+  <Tag id={id} class:list={['sh__title', `sh__title--${size}`, 'reveal']}>{title}</Tag>
+  {intro && <p class="lede reveal" style="--d:120ms">{intro}</p>}
+  <slot />
+</header>
+
+<style>
+  .sh { display: grid; gap: 1.25rem; margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
+  .sh--center { text-align: center; justify-items: center; }
+  .sh__title--lg { font-size: var(--t-lg); }
+  .sh__title--xl { font-size: var(--t-xl); }
+  .sh__title--2xl { font-size: var(--t-2xl); }
+</style>

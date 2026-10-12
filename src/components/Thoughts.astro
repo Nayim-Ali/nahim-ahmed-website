@@ -1,0 +1,44 @@
+---
+import { thoughts } from '../content/content';
+import Button from './Button.astro';
+---
+<section id="thoughts" class="section thoughts" aria-labelledby="thoughts-title">
+  <div class="wrap">
+    <div class="thoughts__head">
+      <h2 id="thoughts-title" class="thoughts__title reveal">{thoughts.heading}</h2>
+      <p class="lede reveal" style="--d:80ms">{thoughts.intro}</p>
+    </div>
+    <div class="thoughts__grid">
+      {thoughts.items.map((t, i) => (
+        <article class:list={['th reveal', { 'th--large': t.size === 'large' }]} style={`--d:${i * 80}ms`}>
+          <p class="th__source">{t.source}{t.date && ` · ${t.date}`}</p>
+          <h3 class="th__title"><a href={t.href} target="_blank" rel="noopener">{t.title}</a></h3>
+          <p class="th__excerpt">{t.excerpt}</p>
+        </article>
+      ))}
+    </div>
+    <div class="thoughts__cta reveal">
+      <Button href={thoughts.cta.href} variant="ghost" target="_blank" rel="noopener">{thoughts.cta.label}</Button>
+    </div>
+  </div>
+</section>
+<style>
+  .thoughts__head { display: grid; gap: 1rem; margin-bottom: 3rem; }
+  .thoughts__title { font-size: var(--t-2xl); }
+  .thoughts__grid { display: grid; gap: 2.5rem; }
+  .th { display: grid; gap: 0.75rem; align-content: start; border-top: 1px solid var(--line); padding-top: 1.25rem; }
+  .th--large { border-top: 1.5px solid var(--ink); }
+  .th__source { font-size: var(--t-xs); color: var(--amber-deep); font-weight: 600; }
+  .th__title { font-size: var(--t-md); }
+  .th--large .th__title { font-size: var(--t-xl); max-width: 14ch; }
+  .th__title a { text-decoration: none; }
+  .th__title a:hover { text-decoration: underline; text-decoration-color: var(--amber); }
+  .th__excerpt { color: var(--ink-2); font-size: var(--t-sm); max-width: 44ch; }
+  .th--large .th__excerpt { font-size: var(--t-base); max-width: 52ch; }
+  .thoughts__cta { margin-top: 3rem; }
+  @media (min-width: 900px) {
+    .thoughts__grid { grid-template-columns: repeat(3, 1fr); column-gap: 3rem; row-gap: 3rem; }
+    .th--large { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; align-items: end; column-gap: 3rem; }
+    .th--large .th__source { grid-column: 1 / -1; }
+  }
+</style>

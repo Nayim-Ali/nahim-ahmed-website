@@ -1,0 +1,14 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { site } from '../content/site';
+---
+<Legal title="Terms" description={`Terms of use for ${site.name}'s website.`}>
+  <p><em>[TERMS — placeholder. Replace with reviewed terms before launch.]</em></p>
+  <h2>Use of this site</h2>
+  <p>The content on this site is provided for information about {site.name} and his work. You're welcome to link to it. Please don't reproduce photography or video without permission.</p>
+  <h2>Enquiries</h2>
+  <p>Submitting the booking form is an enquiry, not a booking. Nothing is confirmed until agreed in writing.</p>
+  <h2>External links</h2>
+  <p>Links to other websites are provided for convenience. {site.firstName} isn't responsible for their content.</p>
+  <p>Last updated: [DATE]</p>
+</Legal>

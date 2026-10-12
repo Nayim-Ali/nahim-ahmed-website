@@ -1,0 +1,56 @@
+---
+import { credibility } from '../content/content';
+---
+<section id="credibility" class="section cred" aria-labelledby="cred-title">
+  <div class="wrap">
+    <div class="cred__head">
+      <h2 id="cred-title" class="cred__title reveal">{credibility.heading}</h2>
+      <p class="lede reveal" style="--d:80ms">{credibility.intro}</p>
+    </div>
+
+    <dl class="cred__stats">
+      {credibility.stats.map((s, i) => (
+        <div class="stat reveal" style={`--d:${i * 80}ms`}>
+          <dd class="stat__value">{s.value}</dd>
+          <dt class="stat__label">{s.label}</dt>
+        </div>
+      ))}
+    </dl>
+
+    <ul class="cred__honours">
+      {credibility.honours.map((h, i) => (
+        <li class="honour reveal" style={`--d:${i * 60}ms`}>
+          <span class="honour__title">{h.title}</span>
+          <span class="honour__detail">{h.detail}</span>
+        </li>
+      ))}
+    </ul>
+
+    <div class="cred__orgs reveal">
+      <h3 class="cred__orgs-title">{credibility.organisationsHeading}</h3>
+      <ul class="cred__org-list">
+        {credibility.organisations.map((o) => <li>{o}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+<style>
+  .cred__head { display: grid; gap: 1rem; margin-bottom: 3.5rem; }
+  .cred__title { font-size: var(--t-2xl); }
+  .cred__stats { display: grid; gap: 2rem; margin: 0 0 3.5rem; border-top: 1.5px solid var(--ink); }
+  .stat { display: grid; gap: 0.5rem; padding-top: 1.25rem; align-content: start; }
+  .stat__value { margin: 0; font-family: var(--display); font-size: var(--t-2xl); font-weight: 600; line-height: 1; letter-spacing: -0.03em; }
+  .stat__label { font-size: var(--t-sm); color: var(--ink-2); max-width: 24ch; }
+  .cred__honours { display: grid; gap: 0; border-top: 1px solid var(--line); }
+  .honour { display: grid; gap: 0.2rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+  .honour__title { font-family: var(--display); font-weight: 600; font-size: var(--t-md); }
+  .honour__detail { font-size: var(--t-sm); color: var(--ink-3); }
+  .cred__orgs { margin-top: 3.5rem; }
+  .cred__orgs-title { font-size: var(--t-base); font-family: var(--body); font-weight: 500; color: var(--ink-3); margin-bottom: 1rem; }
+  .cred__org-list { display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; font-family: var(--display); font-weight: 600; font-size: var(--t-md); }
+  @media (min-width: 640px) {
+    .cred__stats { grid-template-columns: repeat(2, 1fr); }
+    .honour { grid-template-columns: 1fr 1fr; align-items: baseline; }
+  }
+  @media (min-width: 1000px) { .cred__stats { grid-template-columns: repeat(4, 1fr); } }
+</style>

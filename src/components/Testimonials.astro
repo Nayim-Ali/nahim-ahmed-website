@@ -1,0 +1,98 @@
+---
+/**
+ * Testimonials — one large featured quote, then a simple fade carousel of the rest.
+ * Add testimonials in src/content/content.ts. Each can have quote, name, role, organisation, photo.
+ */
+import { testimonials } from '../content/content';
+const featured = testimonials.items.find((t) => t.featured) || testimonials.items[0];
+const rest = testimonials.items.filter((t) => t !== featured);
+---
+<section id="testimonials" class="section section--cream tst" aria-labelledby="tst-title">
+  <div class="wrap">
+    <h2 id="tst-title" class="tst__title reveal">{testimonials.heading}</h2>
+
+    {featured && (
+      <figure class:list={['tst__featured reveal', { 'tst--ph': featured.placeholder }]} style="--d:80ms">
+        <blockquote class="tst__quote">{featured.quote}</blockquote>
+        <figcaption class="tst__who">
+          {featured.photo && (
+            <span class="ph tst__photo" data-label="">
+              <img src={featured.photo.src} alt={featured.photo.alt} loading="lazy" width="120" height="120" />
+            </span>
+          )}
+          <span>
+            <span class="tst__name">{featured.name}</span>
+            {(featured.role || featured.organisation) && (
+              <span class="tst__role">{[featured.role, featured.organisation].filter(Boolean).join(', ')}</span>
+            )}
+          </span>
+        </figcaption>
+      </figure>
+    )}
+
+    {rest.length > 0 && (
+      <div class="tst__carousel reveal" data-carousel style="--d:160ms">
+        <div class="tst__track" aria-live="polite">
+          {rest.map((t, i) => (
+            <figure class:list={['tst__slide', { 'is-active': i === 0, 'tst--ph': t.placeholder }]} data-slide aria-hidden={i !== 0}>
+              <blockquote>{t.quote}</blockquote>
+              <figcaption>
+                <span class="tst__name">{t.name}</span>
+                {(t.role || t.organisation) && <span class="tst__role">{[t.role, t.organisation].filter(Boolean).join(', ')}</span>}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        {rest.length > 1 && (
+          <div class="tst__controls">
+            <button type="button" data-prev aria-label="Previous testimonial">←</button>
+            <span class="tst__count"><span data-current>1</span> / {rest.length}</span>
+            <button type="button" data-next aria-label="Next testimonial">→</button>
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+</section>
+<style>
+  .tst__title { font-size: var(--t-xl); margin-bottom: 3rem; }
+  .tst__featured { margin: 0 0 4rem; display: grid; gap: 2rem; }
+  .tst__quote { margin: 0; font-family: var(--display); font-weight: 500; font-size: var(--t-lg); line-height: 1.15; letter-spacing: -0.015em; max-width: 26ch; text-wrap: balance; }
+  .tst__quote::before { content: '“'; color: var(--amber); }
+  .tst__quote::after { content: '”'; color: var(--amber); }
+  .tst__who { display: flex; align-items: center; gap: 1rem; }
+  .tst__photo { width: 3.5rem; height: 3.5rem; border-radius: 50%; flex: none; }
+  .tst__name { display: block; font-family: var(--display); font-weight: 600; }
+  .tst__role { display: block; font-size: var(--t-sm); color: var(--ink-3); }
+  .tst--ph { opacity: 0.55; }
+
+  .tst__carousel { border-top: 1.5px solid var(--ink); padding-top: 2rem; }
+  .tst__track { display: grid; }
+  .tst__slide { grid-area: 1 / 1; margin: 0; display: grid; gap: 1rem; opacity: 0; transition: opacity 0.6s var(--ease); pointer-events: none; }
+  .tst__slide.is-active { opacity: 1; pointer-events: auto; }
+  .tst__slide blockquote { margin: 0; font-size: var(--t-md); line-height: 1.35; max-width: 44ch; }
+  .tst__controls { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+  .tst__controls button { width: 2.75rem; height: 2.75rem; border-radius: 50%; border: 1.5px solid var(--ink); background: none; cursor: pointer; transition: background 0.25s, color 0.25s; }
+  .tst__controls button:hover { background: var(--ink); color: var(--paper); }
+  .tst__count { font-size: var(--t-sm); color: var(--ink-3); }
+</style>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((c) => {
+    const slides = Array.from(c.querySelectorAll<HTMLElement>('[data-slide]'));
+    const cur = c.querySelector<HTMLElement>('[data-current]');
+    let i = 0;
+    const show = (n: number) => {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => { s.classList.toggle('is-active', k === i); s.setAttribute('aria-hidden', String(k !== i)); });
+      if (cur) cur.textContent = String(i + 1);
+    };
+    c.querySelector('[data-prev]')?.addEventListener('click', () => show(i - 1));
+    c.querySelector('[data-next]')?.addEventListener('click', () => show(i + 1));
+    // Gentle auto-advance; stops on interaction and for reduced motion
+    if (slides.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let t = window.setInterval(() => show(i + 1), 7000);
+      c.addEventListener('pointerdown', () => clearInterval(t));
+      c.addEventListener('focusin', () => clearInterval(t));
+    }
+  });
+</script>

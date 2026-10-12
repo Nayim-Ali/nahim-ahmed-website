@@ -1,0 +1,19 @@
+---
+/** TopicCard — used for speaking topics and services. Quiet, no card chrome; a rule and a title. */
+interface Props { title: string; blurb: string; sub?: string; meta?: string; index?: number }
+const { title, blurb, sub, meta, index = 0 } = Astro.props;
+---
+<article class="topic reveal" style={`--d:${(index % 4) * 70}ms`}>
+  <h3 class="topic__title">{title}</h3>
+  {sub && <p class="topic__sub">{sub}</p>}
+  <p class="topic__blurb">{blurb}</p>
+  {meta && <p class="topic__meta">{meta}</p>}
+</article>
+<style>
+  .topic { border-top: 1.5px solid currentColor; padding-top: 1rem; display: grid; gap: 0.6rem; align-content: start; transition: border-color 0.3s var(--ease); }
+  .topic:hover { border-color: var(--amber); }
+  .topic__title { font-size: var(--t-md); }
+  .topic__sub { font-family: var(--display); font-weight: 500; font-size: var(--t-sm); opacity: 0.75; }
+  .topic__blurb { font-size: var(--t-sm); line-height: 1.55; opacity: 0.85; max-width: 38ch; }
+  .topic__meta { font-size: var(--t-xs); opacity: 0.6; margin-top: 0.25rem; }
+</style>

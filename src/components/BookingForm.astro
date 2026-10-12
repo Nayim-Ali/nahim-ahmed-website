@@ -1,0 +1,170 @@
+---
+/**
+ * BookingForm
+ * Connect it by editing `form` in src/content/site.ts (provider + endpoint).
+ * The submit logic in src/scripts/form.ts is the only thing that talks to the backend.
+ */
+import { site } from '../content/site';
+import { book } from '../content/content';
+import Button from './Button.astro';
+
+const f = site.form;
+const netlify = f.provider === 'netlify';
+---
+
+<section id="book" class="section book" aria-labelledby="book-title">
+  <div class="wrap book__grid">
+    <div class="book__intro">
+      <h2 id="book-title" class="book__title reveal">{book.heading}</h2>
+      <p class="lede reveal" style="--d:80ms">{book.intro}</p>
+      <p class="book__email reveal" style="--d:160ms">
+        {book.emailLine} <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+    </div>
+
+    <div class="book__form">
+    <form
+      class="form reveal"
+      style="--d:120ms"
+      id="booking-form"
+      method="POST"
+      action={f.endpoint || '#'}
+      novalidate
+      data-booking-form
+      data-provider={f.provider}
+      data-endpoint={f.endpoint}
+      data-netlify={netlify ? 'true' : undefined}
+      name={netlify ? 'booking' : undefined}
+    >
+      {netlify && <input type="hidden" name="form-name" value="booking" />}
+      <p class="visually-hidden" aria-hidden="true">
+        <label>Don't fill this in: <input name="_honey" tabindex="-1" autocomplete="off" /></label>
+      </p>
+
+      <div class="form__banner form__banner--error" role="alert" hidden data-form-error>{book.errorBanner}</div>
+
+      <fieldset class="form__fs">
+        <legend class="form__legend">About you</legend>
+        <div class="form__row form__row--2">
+          <div class="field">
+            <label for="f-name">Name <span class="req" aria-hidden="true">*</span></label>
+            <input id="f-name" name="name" type="text" required autocomplete="name" />
+            <p class="field__error" id="f-name-err" hidden></p>
+          </div>
+          <div class="field">
+            <label for="f-email">Email <span class="req" aria-hidden="true">*</span></label>
+            <input id="f-email" name="email" type="email" required autocomplete="email" inputmode="email" />
+            <p class="field__error" id="f-email-err" hidden></p>
+          </div>
+        </div>
+        <div class="form__row form__row--2">
+          <div class="field">
+            <label for="f-org">Organisation</label>
+            <input id="f-org" name="organisation" type="text" autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label for="f-phone">Phone</label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" />
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="form__fs">
+        <legend class="form__legend">About the event</legend>
+        <div class="form__row form__row--2">
+          <div class="field">
+            <label for="f-type">Type of event <span class="req" aria-hidden="true">*</span></label>
+            <select id="f-type" name="event_type" required>
+              <option value="">Choose one</option>
+              {book.eventTypes.map((t) => <option value={t}>{t}</option>)}
+            </select>
+            <p class="field__error" id="f-type-err" hidden></p>
+          </div>
+          <div class="field">
+            <label for="f-date">Date <span class="opt">(if you know it)</span></label>
+            <input id="f-date" name="date" type="date" />
+          </div>
+        </div>
+        <div class="form__row form__row--2">
+          <div class="field">
+            <label for="f-location">Location</label>
+            <input id="f-location" name="location" type="text" placeholder="City, venue, or online" />
+          </div>
+          <div class="field">
+            <label for="f-audience">Audience <span class="opt">(who and roughly how many)</span></label>
+            <input id="f-audience" name="audience" type="text" placeholder="e.g. 150 youth workers" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-topic">What would you like Nahim to speak about? <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="f-topic" name="topic" rows="4" required></textarea>
+          <p class="field__error" id="f-topic-err" hidden></p>
+        </div>
+        <div class="field">
+          <label for="f-more">Anything else?</label>
+          <textarea id="f-more" name="additional" rows="4"></textarea>
+        </div>
+      </fieldset>
+
+      <div class="form__actions">
+        <Button type="submit" size="lg" data-submit>
+          <span data-submit-label>{book.submitLabel}</span>
+        </Button>
+        <p class="small muted">Required fields are marked <span class="req">*</span></p>
+      </div>
+    </form>
+
+    <div class="form__success" hidden data-form-success tabindex="-1">
+      <h3>{book.successTitle}</h3>
+      <p>{book.successBody}</p>
+      <p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+    </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .book__grid { display: grid; gap: 3rem; }
+  .book__intro { display: grid; gap: 1.25rem; align-content: start; }
+  .book__title { font-size: var(--t-2xl); max-width: 10ch; }
+  .book__email { color: var(--ink-2); }
+
+  .form { display: grid; gap: 2.5rem; }
+  .form.is-sending { opacity: 0.7; pointer-events: none; }
+  .form__fs { border: 0; padding: 0; margin: 0; display: grid; gap: 1.5rem; min-width: 0; }
+  .form__legend { font-family: var(--display); font-weight: 600; font-size: var(--t-md); padding: 0; margin-bottom: 0.5rem; }
+  .form__row { display: grid; gap: 1.5rem; }
+  .field { display: grid; gap: 0.5rem; min-width: 0; }
+  .field label { font-weight: 500; font-size: var(--t-sm); }
+  .req { color: var(--amber); }
+  .opt { color: var(--ink-3); font-weight: 400; }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    font: inherit;
+    font-size: var(--t-base);
+    color: var(--ink);
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+    min-height: 3.25rem;
+    transition: border-color 0.2s;
+  }
+  .field textarea { resize: vertical; min-height: 7rem; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--ink); outline: 3px solid var(--amber-soft); outline-offset: 1px; }
+  .field.is-invalid input, .field.is-invalid select, .field.is-invalid textarea { border-color: #b3261e; }
+  .field__error { font-size: var(--t-sm); color: #b3261e; }
+  .form__banner { padding: 1rem 1.25rem; border-radius: 6px; font-size: var(--t-sm); }
+  .form__banner--error { background: #fbe9e7; color: #7a1e17; border: 1px solid #f1c3bd; }
+  .form__actions { display: grid; gap: 1rem; justify-items: start; }
+  .form__success { display: grid; gap: 1rem; padding: 2.5rem; background: var(--cream); border-left: 4px solid var(--amber); }
+  .form__success h3 { font-size: var(--t-xl); }
+
+  @media (min-width: 640px) { .form__row--2 { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) {
+    .book__grid { grid-template-columns: 5fr 7fr; gap: clamp(3rem, 7vw, 7rem); align-items: start; }
+    .book__intro { position: sticky; top: 6rem; }
+  }
+</style>
+
+<script src="../scripts/form.ts"></script>

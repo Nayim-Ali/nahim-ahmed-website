@@ -1,0 +1,293 @@
+/* ─────────────────────────────────────────────── TOKENS */
+:root {
+  /* Colour — warm neutrals + one accent (sodium amber: streetlight over a Poplar estate) */
+  --paper: #f7f3ec;
+  --cream: #efe8db;
+  --sand: #e3d9c6;
+  --ink: #1c1a17;
+  --ink-2: #4a453d;
+  --ink-3: #7d766b;
+  --line: rgba(28, 26, 23, 0.14);
+  --amber: #c96a12;
+  --amber-deep: #a3540c;
+  --amber-soft: #f0c98f;
+  --white: #fffdf9;
+
+  /* Type */
+  --display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  --body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Fluid scale (Elements of Typographic Style-ish, ratio ~1.25 / 1.333 at large) */
+  --t-xs: clamp(0.78rem, 0.75rem + 0.15vw, 0.85rem);
+  --t-sm: clamp(0.9rem, 0.86rem + 0.2vw, 1rem);
+  --t-base: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
+  --t-md: clamp(1.25rem, 1.1rem + 0.7vw, 1.6rem);
+  --t-lg: clamp(1.6rem, 1.3rem + 1.4vw, 2.4rem);
+  --t-xl: clamp(2.2rem, 1.6rem + 2.8vw, 4rem);
+  --t-2xl: clamp(2.8rem, 1.8rem + 4.8vw, 6.4rem);
+  --t-3xl: clamp(3.4rem, 1.5rem + 9vw, 10.5rem);
+
+  /* Layout */
+  --max: 1360px;
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --section: clamp(5rem, 12vw, 11rem);
+  --section-sm: clamp(3rem, 7vw, 6rem);
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.9s;
+}
+
+/* ─────────────────────────────────────────────── BASE */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--t-base);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--display);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  max-width: 62ch;
+}
+
+p + p {
+  margin-top: 1em;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--amber);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--amber-soft);
+  color: var(--ink);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 1000;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ─────────────────────────────────────────────── LAYOUT PRIMITIVES */
+.wrap {
+  width: min(100% - var(--gutter) * 2, var(--max));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: var(--section);
+}
+.section--sm {
+  padding-block: var(--section-sm);
+}
+.section--dark {
+  background: var(--ink);
+  color: var(--paper);
+}
+.section--dark .lede,
+.section--dark .muted {
+  color: rgba(247, 243, 236, 0.72);
+}
+.section--cream {
+  background: var(--cream);
+}
+
+.lede {
+  font-size: var(--t-md);
+  line-height: 1.4;
+  color: var(--ink-2);
+  max-width: 34ch;
+}
+.muted {
+  color: var(--ink-3);
+}
+.small {
+  font-size: var(--t-sm);
+}
+
+.grid {
+  display: grid;
+  gap: var(--gutter);
+}
+@media (min-width: 900px) {
+  .grid-12 {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+/* Placeholder image blocks — replaced by real photography */
+.ph {
+  position: relative;
+  background: var(--sand);
+  color: var(--ink-3);
+  overflow: hidden;
+}
+.ph::after {
+  content: attr(data-label);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  text-align: center;
+  font-family: var(--display);
+  font-size: var(--t-sm);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+.ph img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+}
+/* hide the label once a real image loads */
+.ph.has-img::after {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────── REVEAL (one restrained pattern) */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* image reveal: clip wipe */
+.reveal-img {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.2s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+.reveal-img.is-in {
+  clip-path: inset(0 0 0 0);
+}
+
+/* line-by-line text reveal */
+.lines > * {
+  display: block;
+  opacity: 0;
+  transform: translateY(0.35em);
+  transition:
+    opacity 0.8s var(--ease),
+    transform 0.8s var(--ease);
+}
+.lines.is-in > * {
+  opacity: 1;
+  transform: none;
+}
+.lines.is-in > *:nth-child(2) {
+  transition-delay: 0.08s;
+}
+.lines.is-in > *:nth-child(3) {
+  transition-delay: 0.16s;
+}
+.lines.is-in > *:nth-child(4) {
+  transition-delay: 0.24s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .reveal-img,
+  .lines > * {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* hidden attribute must always win over component display rules */
+[hidden] { display: none !important; }

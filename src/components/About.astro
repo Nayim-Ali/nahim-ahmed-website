@@ -1,0 +1,47 @@
+---
+import { about } from '../content/content';
+import { site } from '../content/site';
+---
+
+<section id="about" class="section about" aria-labelledby="about-title">
+  <div class="wrap about__grid">
+    <figure class="about__portrait reveal-img">
+      <div class="ph" data-label={about.portrait.alt}>
+        <img src={about.portrait.src} alt={about.portrait.alt} loading="lazy" decoding="async" width="1000" height="1250" />
+      </div>
+    </figure>
+
+    <div class="about__text">
+      <h2 id="about-title" class="about__title reveal">{about.heading}</h2>
+      <p class="lede reveal" style="--d:80ms">{about.intro}</p>
+      <p class="about__post reveal" style="--d:120ms">{site.name}, {site.postNominals}</p>
+
+      <dl class="about__cols">
+        {about.columns.map((col, i) => (
+          <div class="about__col reveal" style={`--d:${160 + i * 80}ms`}>
+            <dt>{col.title}</dt>
+            {col.items.map((item) => <dd>{item}</dd>)}
+          </div>
+        ))}
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__grid { display: grid; gap: 3rem; }
+  .about__portrait { margin: 0; }
+  .about__portrait .ph { aspect-ratio: 4 / 5; }
+  .about__text { display: grid; gap: 1.5rem; align-content: start; }
+  .about__title { font-size: var(--t-xl); }
+  .about__post { font-size: var(--t-sm); color: var(--ink-3); }
+  .about__cols { display: grid; gap: 2rem; margin-top: 1rem; }
+  .about__col { border-top: 1.5px solid var(--ink); padding-top: 1rem; }
+  .about__col dt { font-family: var(--display); font-weight: 600; font-size: var(--t-md); margin-bottom: 0.75rem; }
+  .about__col dd { margin: 0 0 0.6rem; color: var(--ink-2); font-size: var(--t-sm); line-height: 1.5; max-width: 42ch; }
+  @media (min-width: 700px) { .about__cols { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) {
+    .about__grid { grid-template-columns: 5fr 7fr; gap: clamp(3rem, 7vw, 7rem); align-items: start; }
+    .about__portrait { position: sticky; top: 6rem; }
+  }
+</style>

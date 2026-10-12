@@ -1,0 +1,60 @@
+---
+import { impact } from '../content/content';
+import TopicCard from './TopicCard.astro';
+---
+<section id="impact" class="section section--dark impact" aria-labelledby="impact-title">
+  <div class="wrap">
+    <div class="impact__head">
+      <h2 id="impact-title" class="impact__title reveal">{impact.heading}</h2>
+      <p class="lede reveal" style="--d:80ms">{impact.intro}</p>
+    </div>
+
+    <div class="impact__areas">
+      {impact.areas.map((a, i) => <TopicCard title={a.title} blurb={a.blurb} index={i} />)}
+    </div>
+
+    <h3 class="impact__cs-title reveal">{impact.caseStudiesHeading}</h3>
+    <div class="impact__cases">
+      {impact.caseStudies.map((c, i) => (
+        <article class:list={['case reveal', { 'case--ph': c.placeholder }]} style={`--d:${i * 90}ms`}>
+          {c.image && (
+            <div class="ph case__img" data-label={c.image.alt}>
+              <img src={c.image.src} alt={c.image.alt} loading="lazy" decoding="async" width="900" height="600" />
+            </div>
+          )}
+          <div class="case__body">
+            <p class="case__context">{c.context}</p>
+            <h4 class="case__title">{c.title}</h4>
+            <dl class="case__dl">
+              <dt>The challenge</dt><dd>{c.challenge}</dd>
+              <dt>What Nahim did</dt><dd>{c.what}</dd>
+              <dt>What happened</dt><dd>{c.happened}</dd>
+              <dt>What was learned</dt><dd>{c.learned}</dd>
+            </dl>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .impact__head { display: grid; gap: 1rem; margin-bottom: 3.5rem; }
+  .impact__title { font-size: var(--t-2xl); max-width: 12ch; }
+  .impact__areas { display: grid; gap: 2rem; margin-bottom: var(--section-sm); }
+  .impact__cs-title { font-size: var(--t-lg); margin-bottom: 2rem; }
+  .impact__cases { display: grid; gap: 2rem; }
+  .case { background: rgba(247,243,236,0.05); border: 1px solid rgba(247,243,236,0.15); display: grid; align-content: start; }
+  .case--ph { border-style: dashed; opacity: 0.6; }
+  .case__img { aspect-ratio: 3 / 2; background: rgba(247,243,236,0.08); outline: 1.5px dashed rgba(247,243,236,0.35); outline-offset: -1.5px; }
+  .case__img.has-img { background: none; outline: 0; }
+  .ph.case__img::after { color: rgba(247,243,236,0.5); }
+  .case__body { padding: 1.5rem; display: grid; gap: 0.75rem; }
+  .case__context { font-size: var(--t-xs); color: var(--amber-soft); }
+  .case__title { font-size: var(--t-md); }
+  .case__dl { display: grid; gap: 0.25rem; margin-top: 0.5rem; }
+  .case__dl dt { font-family: var(--display); font-weight: 600; font-size: var(--t-sm); margin-top: 0.75rem; }
+  .case__dl dd { margin: 0; font-size: var(--t-sm); color: rgba(247,243,236,0.75); line-height: 1.5; }
+  @media (min-width: 640px) { .impact__areas { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 900px) { .impact__cases { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 1100px) { .impact__areas { grid-template-columns: repeat(3, 1fr); column-gap: 3rem; } }
+</style>

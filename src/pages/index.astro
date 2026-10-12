@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../content/site';
+import Hero from '../components/Hero.astro';
+import Intro from '../components/Intro.astro';
+import Story from '../components/Story.astro';
+import About from '../components/About.astro';
+import Speaking from '../components/Speaking.astro';
+import Keynote from '../components/Keynote.astro';
+import Services from '../components/Services.astro';
+import Credibility from '../components/Credibility.astro';
+import Impact from '../components/Impact.astro';
+import Media from '../components/Media.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Thoughts from '../components/Thoughts.astro';
+import FAQ from '../components/FAQ.astro';
+import BookingForm from '../components/BookingForm.astro';
+import FinalCta from '../components/FinalCta.astro';
+import { faq } from '../content/content';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Nahim Ahmed',
+    honorificPrefix: 'Dr',
+    honorificSuffix: 'MBE',
+    jobTitle: 'Keynote speaker and Head of Strategic Engagement (Youth & Community)',
+    worksFor: { '@type': 'Organization', name: 'Poplar HARCA' },
+    url: site.url,
+    image: new URL(site.seo.ogImage, site.url).href,
+    sameAs: [site.social.linkedin, site.social.instagram, site.social.x].filter(Boolean),
+    knowsAbout: ['Youth work', 'Youth leadership', 'Community development', 'Resilience', 'Social change'],
+    address: { '@type': 'PostalAddress', addressLocality: 'London', addressCountry: 'GB' },
+    award: ['MBE (2021)', 'Honorary Doctorate in Youth and Community Work', 'Lifetime Achievement Award', 'British Citizen Award'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.name,
+    url: site.url,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.items.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+];
+---
+
+<Base jsonLd={jsonLd}>
+  <Hero />
+  <Intro />
+  <Story />
+  <About />
+  <Speaking />
+  <Keynote />
+  <Services />
+  <Credibility />
+  <Impact />
+  <Media />
+  <Testimonials />
+  <Thoughts />
+  <FAQ />
+  <BookingForm />
+  <FinalCta />
+</Base>

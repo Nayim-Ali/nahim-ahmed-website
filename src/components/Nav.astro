@@ -1,0 +1,183 @@
+---
+import { site } from '../content/site';
+import Button from './Button.astro';
+---
+
+<header class="nav" id="site-nav" data-nav>
+  <div class="wrap nav__inner">
+    <a href="/" class="nav__brand" aria-label={`${site.name} — home`}>
+      <span class="nav__brand-name">Nahim Ahmed</span>
+      <span class="nav__brand-post">MBE</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      <ul>
+        {site.nav.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="nav__cta">
+      <Button href={site.bookingUrl}>Book Nahim</Button>
+    </div>
+
+    <button
+      class="nav__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-nav-toggle
+    >
+      <span class="nav__toggle-bar"></span>
+      <span class="nav__toggle-bar"></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+  </div>
+
+  <div class="nav__mobile" id="mobile-menu" data-nav-mobile hidden>
+    <nav aria-label="Mobile">
+      <ul>
+        {site.nav.map((item) => (
+          <li><a href={item.href} data-nav-close>{item.label}</a></li>
+        ))}
+        <li><a href={site.bookingUrl} class="nav__mobile-book" data-nav-close>Book Nahim</a></li>
+      </ul>
+    </nav>
+    <p class="nav__mobile-foot">
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    color: var(--paper);
+    transition: background 0.4s var(--ease), color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .nav.is-scrolled {
+    background: rgba(247, 243, 236, 0.9);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    color: var(--ink);
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .nav.is-open { color: var(--paper); background: var(--ink); }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    height: 4.5rem;
+  }
+  .nav__brand {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4em;
+  }
+  .nav__brand-post { font-size: 0.7em; opacity: 0.7; }
+
+  .nav__links { display: none; }
+  .nav__links ul { display: flex; gap: 2rem; }
+  .nav__links a {
+    text-decoration: none;
+    font-size: var(--t-sm);
+    font-weight: 500;
+    position: relative;
+    padding-block: 0.25rem;
+  }
+  .nav__links a::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 1.5px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease);
+  }
+  .nav__links a:hover::after, .nav__links a:focus-visible::after { transform: scaleX(1); }
+
+  .nav__cta { display: none; }
+
+  .nav__toggle {
+    display: grid;
+    gap: 6px;
+    background: none;
+    border: 0;
+    padding: 0.75rem;
+    margin-right: -0.75rem;
+    cursor: pointer;
+  }
+  .nav__toggle-bar {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.3s var(--ease);
+  }
+  .nav.is-open .nav__toggle-bar:first-child { transform: translateY(4px) rotate(45deg); }
+  .nav.is-open .nav__toggle-bar:last-child { transform: translateY(-4px) rotate(-45deg); }
+
+  .nav__mobile {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 1rem var(--gutter) 2.5rem;
+    border-top: 1px solid rgba(247,243,236,0.12);
+  }
+  .nav__mobile ul { display: grid; }
+  .nav__mobile a {
+    display: block;
+    padding: 0.9rem 0;
+    font-family: var(--display);
+    font-size: var(--t-lg);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(247,243,236,0.12);
+  }
+  .nav__mobile-book { color: var(--amber-soft); }
+  .nav__mobile-foot { margin-top: 1.5rem; font-size: var(--t-sm); opacity: 0.7; }
+
+  @media (min-width: 900px) {
+    .nav__links, .nav__cta { display: block; }
+    .nav__toggle, .nav__mobile { display: none !important; }
+  }
+</style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+  const mobile = document.querySelector<HTMLElement>('[data-nav-mobile]');
+  const hero = document.querySelector<HTMLElement>('[data-hero]');
+
+  // Scroll state: transparent over the hero, solid afterwards
+  const update = () => {
+    const threshold = hero ? hero.offsetHeight - 80 : 40;
+    nav?.classList.toggle('is-scrolled', window.scrollY > threshold);
+  };
+  update();
+  window.addEventListener('scroll', update, { passive: true });
+
+  // Mobile menu
+  const setOpen = (open: boolean) => {
+    if (!nav || !toggle || !mobile) return;
+    nav.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    mobile.hidden = !open;
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  toggle?.addEventListener('click', () => setOpen(!nav?.classList.contains('is-open')));
+  document.querySelectorAll('[data-nav-close]').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+</script>
