@@ -291,3 +291,9 @@ button {
 
 /* hidden attribute must always win over component display rules */
 [hidden] { display: none !important; }
+
+/* Shared interaction polish; never obstruct keyboard focus or reduced-motion settings */
+html{scroll-padding-top:6rem}
+a,button{ -webkit-tap-highlight-color:transparent }
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #d4c54a;outline-offset:4px}
+@media(hover:hover){a,button{touch-action:manipulation}}

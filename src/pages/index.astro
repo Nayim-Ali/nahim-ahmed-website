@@ -1,16 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import Intro from '../components/Intro.astro';
+import Journey from '../components/Journey.astro';
+import TopicExplorer from '../components/TopicExplorer.astro';
 import Credibility from '../components/Credibility.astro';
-import Keynote from '../components/Keynote.astro';
+
 import Testimonials from '../components/Testimonials.astro';
 import FinalCta from '../components/FinalCta.astro';
 import Button from '../components/Button.astro';
 ---
 <Base>
   <Hero />
-  <Intro />
+  <Journey />
   <section class="section home-paths">
     <div class="wrap">
       <p class="home-paths__eyebrow">DISCOVER NAHIM</p>
@@ -38,13 +39,14 @@ import Button from '../components/Button.astro';
     </div>
   </section>
   <Credibility />
-  <section class="home-keynote">
-    <div class="wrap home-keynote__heading">
-      <div><p class="home-paths__eyebrow">ON STAGE</p><h2>Speaking that sparks a conversation.</h2></div>
-      <Button href="/keynote-speaking/">All speaking topics ↗</Button>
+  <TopicExplorer />
+  <section class="statement-band" aria-label="Nahim's approach">
+    <div class="wrap">
+      <p class="statement-band__eyebrow">THE REAL DIFFERENCE</p>
+      <p class="statement-band__quote">Not another motivational speech. <em>A conversation that changes what happens next.</em></p>
+      <div class="statement-band__footer"><span>THE MESSAGE IS PERSONAL. THE IMPACT IS SHARED.</span><a href="/keynote-speaking/">Discover keynote speaking <span aria-hidden="true">↗</span></a></div>
     </div>
   </section>
-  <Keynote />
   <Testimonials />
   <FinalCta />
 </Base>
@@ -63,4 +65,14 @@ import Button from '../components/Button.astro';
 .home-keynote__heading{display:flex;gap:2rem;align-items:end;justify-content:space-between}
 .home-keynote h2{font-size:clamp(2.6rem,5vw,5rem);max-width:13ch}
 @media(max-width:760px){.home-paths__grid{grid-template-columns:1fr}.home-paths__card{min-height:15rem}.home-keynote__heading{align-items:start;flex-direction:column}}
+.statement-band{padding:clamp(7rem,13vw,13rem) 0;background:#171918;color:#f6f5f0;position:relative;overflow:hidden}
+.statement-band:before{content:'';position:absolute;right:-9vw;top:-9vw;width:46vw;aspect-ratio:1;border-radius:50%;border:1px solid #d4c54a3d;box-shadow:0 0 0 7vw #d4c54a09,0 0 0 14vw #d4c54a05}
+.statement-band .wrap{position:relative;z-index:1}
+.statement-band__eyebrow{color:#d4c54a;font-size:.77rem;letter-spacing:.2em;font-weight:700;margin-bottom:clamp(3rem,7vw,7rem)}
+.statement-band__quote{font-family:var(--display);font-size:clamp(3rem,7.2vw,8rem);font-weight:700;line-height:.98;letter-spacing:-.06em;max-width:15ch}
+.statement-band__quote em{color:#e0d16b;font-weight:500}
+.statement-band__footer{display:flex;justify-content:space-between;gap:2rem;align-items:center;flex-wrap:wrap;border-top:1px solid #ffffff45;margin-top:clamp(4rem,8vw,8rem);padding-top:1.5rem}
+.statement-band__footer>span{font-size:.77rem;letter-spacing:.13em;color:#cdd2ca}
+.statement-band__footer a{color:#e0d16b;text-decoration:none;font-weight:700;font-size:1.05rem}
+@media(max-width:760px){.statement-band__quote{font-size:clamp(3rem,11vw,5rem)}}
 </style>

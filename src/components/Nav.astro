@@ -13,7 +13,7 @@ import Button from './Button.astro';
     <nav class="nav__links" aria-label="Primary">
       <ul>
         {site.nav.map((item) => (
-          <li><a href={item.href}>{item.label}</a></li>
+          <li><a href={item.href} aria-current={Astro.url.pathname === item.href ? "page" : undefined}>{item.label}</a></li>
         ))}
       </ul>
     </nav>
@@ -59,12 +59,13 @@ import Button from './Button.astro';
     transition: background 0.4s var(--ease), color 0.4s var(--ease), box-shadow 0.4s var(--ease);
   }
   .nav.is-scrolled {
-    background: rgba(247, 243, 236, 0.9);
+    background: rgba(246,245,240,.97);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     color: var(--ink);
     box-shadow: 0 1px 0 var(--line);
   }
+  .nav__links a[aria-current='page']::after{transform:scaleX(1);background:var(--amber)}
   .nav.is-open { color: var(--paper); background: var(--ink); }
 
   .nav__inner {
@@ -72,7 +73,7 @@ import Button from './Button.astro';
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    height: 4.5rem;
+    height: 5.2rem;
   }
   .nav__brand {
     font-family: var(--display);
@@ -90,7 +91,7 @@ import Button from './Button.astro';
   .nav__links ul { display: flex; gap: 2rem; }
   .nav__links a {
     text-decoration: none;
-    font-size: var(--t-sm);
+    font-size: clamp(.79rem,.85vw,.94rem);
     font-weight: 500;
     position: relative;
     padding-block: 0.25rem;
@@ -128,6 +129,7 @@ import Button from './Button.astro';
   .nav.is-open .nav__toggle-bar:first-child { transform: translateY(4px) rotate(45deg); }
   .nav.is-open .nav__toggle-bar:last-child { transform: translateY(-4px) rotate(-45deg); }
 
+  .nav__brand-name{letter-spacing:-.055em;font-size:1.22rem}
   .nav__mobile {
     background: var(--ink);
     color: var(--paper);
