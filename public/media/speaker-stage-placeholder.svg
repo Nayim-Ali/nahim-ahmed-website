@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="t d">
+<title id="t">Abstract speaking stage illustration</title>
+<desc id="d">Stylised charcoal stage with soft muted-gold spotlights and audience silhouettes. Temporary placeholder, not a photograph of Nahim.</desc>
+<defs>
+<linearGradient id="bg" x2="1" y2="1"><stop stop-color="#111716"/><stop offset=".55" stop-color="#242722"/><stop offset="1" stop-color="#111513"/></linearGradient>
+<radialGradient id="lit"><stop stop-color="#ccbd69" stop-opacity=".42"/><stop offset="1" stop-color="#b4a43c" stop-opacity="0"/></radialGradient>
+<linearGradient id="beam" x1=".5" x2=".5" y2="1"><stop stop-color="#ddcd77" stop-opacity=".34"/><stop offset="1" stop-color="#d4c54a" stop-opacity="0"/></linearGradient>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<ellipse cx="1180" cy="355" rx="590" ry="460" fill="url(#lit)"/>
+<ellipse cx="390" cy="250" rx="420" ry="410" fill="url(#lit)" opacity=".3"/>
+<path d="M945 0h190l440 805H560z" fill="url(#beam)" opacity=".55"/>
+<path d="M0 595q330-100 720 20t880-60v345H0z" fill="#111715" opacity=".6"/>
+<g fill="#090e0d" opacity=".93"><path d="M0 795Q85 712 180 790t188 2q105-85 202 15t178-2q92-95 188-5t182-9q95-94 190-7t292-16v132H0z"/></g>
+<g fill="#202621" opacity=".85"><circle cx="1050" cy="490" r="49"/><path d="M978 545q72-43 143 0l38 195H940z"/><path d="M1008 582l-62 66-16-17 54-110z"/><path d="M1098 575l72 41-9 20-80-26z"/></g>
+<rect x="0" y="0" width="1600" height="900" fill="#101512" opacity=".2"/>
+</svg>

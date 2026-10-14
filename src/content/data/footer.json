@@ -1,14 +1,35 @@
 {
   "blurb": "Keynote speaker and youth work leader. Born, raised and still working in Tower Hamlets.",
   "links": [
-    { "label": "Story", "href": "#story" },
-    { "label": "Speaking", "href": "#speaking" },
-    { "label": "Impact", "href": "#impact" },
-    { "label": "Media", "href": "#media" },
-    { "label": "Book Nahim", "href": "#book" }
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "About",
+      "href": "/about/"
+    },
+    {
+      "label": "Keynote Speaking",
+      "href": "/keynote-speaking/"
+    },
+    {
+      "label": "Resources",
+      "href": "/resources/"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact/"
+    }
   ],
   "legal": [
-    { "label": "Privacy policy", "href": "/privacy" },
-    { "label": "Terms", "href": "/terms" }
+    {
+      "label": "Privacy policy",
+      "href": "/privacy"
+    },
+    {
+      "label": "Terms",
+      "href": "/terms"
+    }
   ]
 }
