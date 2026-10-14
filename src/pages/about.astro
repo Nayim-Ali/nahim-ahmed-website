@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import pages from '../content/data/pages.json';
+import Story from '../components/Story.astro';
+import About from '../components/About.astro';
+import Credibility from '../components/Credibility.astro';
+import Impact from '../components/Impact.astro';
+import FinalCta from '../components/FinalCta.astro';
+---
+<Base title={pages.about.seoTitle} description={pages.about.seoDescription}>
+  <PageHero page="about" />
+  <Story />
+  <About />
+  <Credibility />
+  <Impact />
+  <FinalCta />
+</Base>

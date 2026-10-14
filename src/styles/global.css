@@ -1,17 +1,17 @@
 /* ─────────────────────────────────────────────── TOKENS */
 :root {
   /* Colour — warm neutrals + one accent (sodium amber: streetlight over a Poplar estate) */
-  --paper: #f7f3ec;
-  --cream: #efe8db;
+  --paper: #f6f5f0;
+  --cream: #eceadf;
   --sand: #e3d9c6;
-  --ink: #1c1a17;
-  --ink-2: #4a453d;
-  --ink-3: #7d766b;
+  --ink: #171918;
+  --ink-2: #444b45;
+  --ink-3: #667066;
   --line: rgba(28, 26, 23, 0.14);
-  --amber: #c96a12;
-  --amber-deep: #a3540c;
-  --amber-soft: #f0c98f;
-  --white: #fffdf9;
+  --amber: #d4c54a;
+  --amber-deep: #b7aa39;
+  --amber-soft: #e4d777;
+  --white: #ffffff;
 
   /* Type */
   --display: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;

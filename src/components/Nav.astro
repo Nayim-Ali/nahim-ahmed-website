@@ -162,7 +162,7 @@ import Button from './Button.astro';
   // Scroll state: transparent over the hero, solid afterwards
   const update = () => {
     const threshold = hero ? hero.offsetHeight - 80 : 40;
-    nav?.classList.toggle('is-scrolled', window.scrollY > threshold);
+    nav?.classList.toggle('is-scrolled', !hero || window.scrollY > threshold);
   };
   update();
   window.addEventListener('scroll', update, { passive: true });

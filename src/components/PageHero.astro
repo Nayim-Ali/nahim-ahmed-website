@@ -1,0 +1,21 @@
+---
+import pages from '../content/data/pages.json';
+interface Props { page: keyof typeof pages; }
+const item = pages[Astro.props.page];
+---
+<section class="inner-hero">
+  <div class="wrap inner-hero__body">
+    <p class="inner-hero__eyebrow">{item.eyebrow}</p>
+    <h1>{item.headline}</h1>
+    <p class="inner-hero__description">{item.description}</p>
+  </div>
+  <div class="inner-hero__detail" aria-hidden="true"></div>
+</section>
+<style>
+.inner-hero{position:relative;isolation:isolate;overflow:hidden;background:#171918;color:#f6f5f0;padding:clamp(10rem,19vw,16rem) 0 clamp(5rem,11vw,10rem)}
+.inner-hero__body{position:relative;z-index:1}
+.inner-hero__eyebrow{font-size:.77rem;letter-spacing:.23em;font-weight:700;color:#d4c54a;margin-bottom:1.6rem}
+.inner-hero h1{font-size:clamp(3.4rem,8vw,8.7rem);max-width:13ch;letter-spacing:-.055em;line-height:.99}
+.inner-hero__description{font-size:clamp(1.1rem,1.7vw,1.55rem);color:#d4d8ce;line-height:1.5;max-width:39rem;margin-top:2rem}
+.inner-hero__detail{position:absolute;right:-12%;top:10%;width:60vw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#d4c54a26,transparent 65%);z-index:0}
+</style>
