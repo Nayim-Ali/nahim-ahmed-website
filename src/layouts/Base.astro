@@ -54,6 +54,9 @@ const ogImageAbs = new URL(ogImage, site.url).href;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
+    <!-- Netlify Identity — required for CMS login at /admin -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -66,6 +69,19 @@ const ogImageAbs = new URL(ogImage, site.url).href;
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Redirect to /admin after login (only fires on the main site, not inside /admin) -->
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', (user) => {
+          if (!user) {
+            window.netlifyIdentity.on('login', () => {
+              document.location.href = '/admin/';
+            });
+          }
+        });
+      }
+    </script>
     <Nav />
     <main id="main">
       <slot />

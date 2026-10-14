@@ -1,0 +1,92 @@
+{
+  "heading": "Where I started, and what changed.",
+  "intro": "This isn\u2019t a rags-to-riches story. It\u2019s a story about what happens when a young person gets the right people around them \u2014 and what he does with it afterwards.",
+  "chapters": [
+    {
+      "id": "poplar",
+      "kicker": "Poplar, East London",
+      "statement": "I was one of the young people I now work with.",
+      "body": [
+        "I grew up in Tower Hamlets, one of the most deprived boroughs in the country. Crime, gang violence and youth violence weren\u2019t things I read about. They were the backdrop.",
+        "Some of my closest friends didn\u2019t make it out. Some went to prison. Some we lost to mental health. None of them had the right support at the right time."
+      ],
+      "image": {
+        "src": "/images/story-poplar.jpg",
+        "alt": "Nahim on the streets of Poplar, East London",
+        "caption": "Poplar. The same streets, then and now."
+      }
+    },
+    {
+      "id": "school",
+      "kicker": "School",
+      "statement": "\u201cYou won\u2019t even have the skills to be a dustbin cleaner.\u201d",
+      "body": [
+        "That\u2019s what a teacher told me, in front of my classmates, as I came to the end of my A Levels. My GCSEs had already gone badly. I\u2019d failed, miserably, by my own account.",
+        "It wasn\u2019t feedback. It was a verdict. I carried it for a long time \u2014 not because I believed it, but because I couldn\u2019t understand why someone whose job was to inspire would choose to do the opposite."
+      ],
+      "image": { "src": "", "alt": "", "caption": "" }
+    },
+    {
+      "id": "turning-point",
+      "kicker": "The wake-up call",
+      "statement": "Then I lost a close friend to reckless driving. Everything changed.",
+      "body": [
+        "I went back to college and retook my GCSEs while working three jobs. In 2009 I started a degree in Youth and Community Work at the University of East London.",
+        "I wanted to build a better future. Not just for me \u2014 for the people around me, and especially for the young people coming up behind me."
+      ],
+      "image": {
+        "src": "/images/story-turning-point.jpg",
+        "alt": "Nahim as a young youth worker",
+        "caption": ""
+      }
+    },
+    {
+      "id": "the-work",
+      "kicker": "The work",
+      "statement": "Fifteen years on the frontline. Most of it on the streets.",
+      "body": [
+        "Youth services are the gateway for young people who don\u2019t know what\u2019s out there \u2014 mental health support, training, jobs, someone to talk to. If we don\u2019t go to them, most will never come to us.",
+        "So I went to them. Detached youth work on the corners and estates of Poplar, often late at night and often in my own time. Building trust one ordinary moment at a time: showing up, remembering names, keeping promises."
+      ],
+      "image": {
+        "src": "/images/story-the-work.jpg",
+        "alt": "Nahim with young people at Spotlight youth service",
+        "caption": "Spotlight, Poplar HARCA\u2019s youth service."
+      }
+    },
+    {
+      "id": "recognition",
+      "kicker": "Eid, 2021",
+      "statement": "I found out about the MBE in the mosque, straight after Eid prayers.",
+      "body": [
+        "For services to disadvantaged young people in Tower Hamlets. A borough I was told I\u2019d amount to nothing in.",
+        "Since then: a master\u2019s at UCL on a full scholarship, completed while working full time. An honorary doctorate in Youth and Community Work. A Lifetime Achievement Award. Four universities, from someone who once had no GCSEs to speak of."
+      ],
+      "image": {
+        "src": "/images/story-mbe.jpg",
+        "alt": "Nahim receiving his MBE",
+        "caption": ""
+      }
+    },
+    {
+      "id": "now",
+      "kicker": "Now",
+      "statement": "The words that were meant to crush me became fuel.",
+      "body": [
+        "I still work in Tower Hamlets. I still do the work. And now I get to stand in front of rooms full of people and tell them what I know for certain: nobody is hard to reach. We just have to be the ones who go."
+      ],
+      "image": { "src": "", "alt": "", "caption": "" }
+    }
+  ],
+  "timeline": [
+    { "year": "Early years", "label": "Grows up in Poplar, Tower Hamlets" },
+    { "year": "School", "label": "Fails GCSEs; told he\u2019ll never amount to anything" },
+    { "year": "Turning point", "label": "Loses a close friend. Retakes GCSEs while working three jobs" },
+    { "year": "2009", "label": "Starts BA (Hons) Youth and Community Work, University of East London" },
+    { "year": "[YEAR]", "label": "British Citizen Award, presented at the Houses of Parliament" },
+    { "year": "2021", "label": "MBE, Queen\u2019s Birthday Honours" },
+    { "year": "2023", "label": "Completes MSc at UCL as an Aziz Foundation scholar" },
+    { "year": "[YEAR]", "label": "Honorary Doctorate in Youth and Community Work" },
+    { "year": "Now", "label": "Head of Strategic Engagement (Youth & Community), Poplar HARCA / Spotlight" }
+  ]
+}

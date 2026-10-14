@@ -1,0 +1,41 @@
+{
+  "heading": "What people say afterwards.",
+  "items": [
+    {
+      "quote": "[FEATURED TESTIMONIAL \u2014 a real quote from an event organiser or attendee. Two or three sentences is ideal.]",
+      "name": "[Name]",
+      "role": "[Job title]",
+      "organisation": "[Organisation]",
+      "photo": { "src": "/images/testimonial-1.jpg", "alt": "[Photo of person]" },
+      "featured": true,
+      "placeholder": true
+    },
+    {
+      "quote": "[TESTIMONIAL]",
+      "name": "[Name]",
+      "role": "[Job title]",
+      "organisation": "[Organisation]",
+      "photo": { "src": "", "alt": "" },
+      "featured": false,
+      "placeholder": true
+    },
+    {
+      "quote": "[TESTIMONIAL]",
+      "name": "[Name]",
+      "role": "[Job title]",
+      "organisation": "[Organisation]",
+      "photo": { "src": "", "alt": "" },
+      "featured": false,
+      "placeholder": true
+    },
+    {
+      "quote": "[TESTIMONIAL]",
+      "name": "[Name]",
+      "role": "[Job title]",
+      "organisation": "[Organisation]",
+      "photo": { "src": "", "alt": "" },
+      "featured": false,
+      "placeholder": true
+    }
+  ]
+}

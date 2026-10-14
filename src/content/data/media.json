@@ -1,0 +1,83 @@
+{
+  "heading": "Watch, listen, read.",
+  "intro": "Clips, interviews and articles. More added as they happen.",
+  "items": [
+    {
+      "type": "video",
+      "title": "Nahim on Youth and Community Work",
+      "source": "University of East London",
+      "date": "2022",
+      "youtubeId": "z__Y7oAM6Y0",
+      "image": { "src": "", "alt": "" },
+      "href": "",
+      "featured": true,
+      "placeholder": false
+    },
+    {
+      "type": "video",
+      "title": "[SPEAKING CLIP TITLE]",
+      "source": "[Event]",
+      "date": "",
+      "youtubeId": "",
+      "image": { "src": "/images/media-clip.jpg", "alt": "[SPEAKING CLIP STILL]" },
+      "href": "",
+      "featured": false,
+      "placeholder": true
+    },
+    {
+      "type": "talk",
+      "title": "Building the villages to enable systemic resilience for our children and their communities",
+      "source": "CareKnowledge \u2014 Violence Free Futures",
+      "date": "November 2024",
+      "href": "https://www.careknowledge.com/resources/special-reports/2024/nov/violence-free-futures-replay",
+      "youtubeId": "",
+      "image": { "src": "", "alt": "" },
+      "featured": false,
+      "placeholder": false
+    },
+    {
+      "type": "article",
+      "title": "Tower Hamlets youth worker on lack of funding for vital services",
+      "source": "East London Advertiser",
+      "date": "2021",
+      "href": "https://www.eastlondonadvertiser.co.uk/news/tower-hamlets-nahim-ahmed-mbe-8085406",
+      "youtubeId": "",
+      "image": { "src": "", "alt": "" },
+      "featured": false,
+      "placeholder": false
+    },
+    {
+      "type": "article",
+      "title": "Nahim Ahmed on positive, sustainable change",
+      "source": "UCL Bartlett \u2014 student Q&A",
+      "date": "",
+      "href": "https://www.ucl.ac.uk/bartlett/study/student-and-alumni-profiles/nahim-ahmed",
+      "youtubeId": "",
+      "image": { "src": "", "alt": "" },
+      "featured": false,
+      "placeholder": false
+    },
+    {
+      "type": "article",
+      "title": "Spotlight youth worker awarded an MBE",
+      "source": "Poplar HARCA",
+      "date": "June 2021",
+      "href": "https://www.poplarharca.co.uk/about-us/news/article/the-queens-birthday-honours-local-spotlight-youth-worker-with-an-mbe/",
+      "youtubeId": "",
+      "image": { "src": "", "alt": "" },
+      "featured": false,
+      "placeholder": false
+    },
+    {
+      "type": "podcast",
+      "title": "[PODCAST EPISODE TITLE]",
+      "source": "[Podcast name]",
+      "date": "",
+      "href": "",
+      "youtubeId": "",
+      "image": { "src": "", "alt": "" },
+      "featured": false,
+      "placeholder": true
+    }
+  ]
+}

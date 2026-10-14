@@ -1,0 +1,63 @@
+{
+  "heading": "The work, not the numbers.",
+  "intro": "Awards are what other people notice. This is what Nahim actually does, and who it\u2019s for.",
+  "areas": [
+    {
+      "title": "Detached youth work",
+      "blurb": "Going to the corners and estates where young people actually are, at the hours they\u2019re there. Often in his own time. This is where most of the trust gets built."
+    },
+    {
+      "title": "Employment and training",
+      "blurb": "A big part of Nahim\u2019s frontline work has been getting under-25s onto courses and into jobs \u2014 sometimes by walking them through the door himself."
+    },
+    {
+      "title": "Spotlight",
+      "blurb": "Poplar HARCA\u2019s award-winning youth service for 11 to 19 year olds in Tower Hamlets. Nahim went from engagement manager to leading strategic engagement across youth and community."
+    },
+    {
+      "title": "Violence reduction",
+      "blurb": "Spotlight is part of the MyEnds consortium supported by London\u2019s Violence Reduction Unit. Nahim has spoken alongside the Mayor of London on the funding frontline youth work needs."
+    },
+    {
+      "title": "Prevention and awareness",
+      "blurb": "Workshops with young people on the risks in front of them, from nitrous oxide to anti-social behaviour, delivered where they are rather than where it\u2019s convenient."
+    },
+    {
+      "title": "Speaking up for the sector",
+      "blurb": "On panels, in the press and in webinars with policymakers, making the case that youth work has been underfunded and undervalued for a decade, and what to do about it."
+    }
+  ],
+  "caseStudiesHeading": "A few examples",
+  "caseStudies": [
+    {
+      "title": "One course, one job",
+      "context": "Employment and training, Poplar",
+      "challenge": "A young man in Poplar with no clear route into work, and a four-day security industry course he was unlikely to finish on his own.",
+      "what": "Nahim went out of his way to get him through it \u2014 the practical stuff, the encouragement, the showing up.",
+      "happened": "He completed the course and got a job. He\u2019s now looking ahead rather than back.",
+      "learned": "It\u2019s rarely the course that\u2019s the barrier. It\u2019s having one adult who will see it through with you.",
+      "image": { "src": "/images/case-1.jpg", "alt": "Case study photo" },
+      "placeholder": false
+    },
+    {
+      "title": "[CASE STUDY TITLE]",
+      "context": "[Programme or place]",
+      "challenge": "[The challenge]",
+      "what": "[What Nahim did]",
+      "happened": "[What happened]",
+      "learned": "[What was learned]",
+      "image": { "src": "", "alt": "" },
+      "placeholder": true
+    },
+    {
+      "title": "[CASE STUDY TITLE]",
+      "context": "[Programme or place]",
+      "challenge": "[The challenge]",
+      "what": "[What Nahim did]",
+      "happened": "[What happened]",
+      "learned": "[What was learned]",
+      "image": { "src": "", "alt": "" },
+      "placeholder": true
+    }
+  ]
+}

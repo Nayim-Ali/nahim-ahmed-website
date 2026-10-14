@@ -1,0 +1,30 @@
+{
+  "heading": "For the record.",
+  "intro": "Not to show off. Just so you know he knows what he\u2019s talking about.",
+  "stats": [
+    { "value": "15+", "label": "years as a youth worker in Tower Hamlets" },
+    { "value": "4", "label": "universities graduated from, after leaving school with no GCSEs to speak of" },
+    { "value": "2", "label": "of the country\u2019s highest honours: an MBE and an honorary doctorate" },
+    { "value": "[NUMBER]", "label": "talks, keynotes and workshops delivered" }
+  ],
+  "honours": [
+    { "title": "MBE", "detail": "Queen\u2019s Birthday Honours, 2021" },
+    { "title": "Honorary Doctorate", "detail": "Youth and Community Work" },
+    { "title": "Lifetime Achievement Award", "detail": "[Awarding body to confirm]" },
+    { "title": "British Citizen Award", "detail": "Presented at the Houses of Parliament" },
+    { "title": "Aziz Foundation Scholar", "detail": "Full scholarship, MSc at UCL" }
+  ],
+  "organisationsHeading": "Organisations he\u2019s worked with or been part of",
+  "organisations": [
+    "Poplar HARCA",
+    "Spotlight Youth Service",
+    "London Youth",
+    "The Young Foundation",
+    "University College London",
+    "University of East London",
+    "The Aziz Foundation",
+    "London Violence Reduction Unit / MyEnds",
+    "[ORGANISATION]",
+    "[ORGANISATION]"
+  ]
+}

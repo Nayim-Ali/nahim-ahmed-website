@@ -1,0 +1,49 @@
+{
+  "url": "https://nahimahmed.co.uk",
+  "name": "Dr Nahim Ahmed MBE",
+  "shortName": "Nahim Ahmed",
+  "firstName": "Nahim",
+  "postNominals": "DSc (h.c), MSc, PGDip, BA (Hons), JNC",
+  "descriptor": "Keynote speaker. Youth worker. Born and raised in Tower Hamlets.",
+  "seo": {
+    "title": "Dr Nahim Ahmed MBE \u2014 Keynote Speaker & Youth Work Leader",
+    "description": "Dr Nahim Ahmed MBE is a keynote speaker and youth and community leader from Tower Hamlets. Book Nahim to speak on youth work, leadership, resilience, purpose and community.",
+    "ogImage": "/images/og-image.jpg",
+    "twitterHandle": "@nahimahmedMBE"
+  },
+  "email": "hello@nahimahmed.co.uk",
+  "phone": "",
+  "location": "London, UK",
+  "social": {
+    "linkedin": "https://www.linkedin.com/in/nahimahmedmbe",
+    "instagram": "https://instagram.com/nahimahmedmbe",
+    "x": "https://x.com/nahimahmedMBE"
+  },
+  "bookingUrl": "#book",
+  "hero": {
+    "poster": "/media/hero-poster.jpg",
+    "videoDesktop": "/media/hero-desktop.mp4",
+    "videoMobile": "/media/hero-mobile.mp4",
+    "videoWebm": "",
+    "captions": "",
+    "hasAudio": true
+  },
+  "speakingVideo": {
+    "video": "/media/speaking-loop.mp4",
+    "mobileVideo": "/media/speaking-loop-mobile.mp4",
+    "poster": "/media/speaking-poster.jpg",
+    "alt": "Nahim speaking on stage"
+  },
+  "form": {
+    "provider": "none",
+    "endpoint": ""
+  },
+  "nav": [
+    { "label": "Story", "href": "#story" },
+    { "label": "Speaking", "href": "#speaking" },
+    { "label": "Impact", "href": "#impact" },
+    { "label": "Media", "href": "#media" },
+    { "label": "Thoughts", "href": "#thoughts" }
+  ],
+  "copyrightName": "Dr Nahim Ahmed MBE"
+}

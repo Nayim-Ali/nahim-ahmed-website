@@ -1,0 +1,41 @@
+{
+  "heading": "The professional bit.",
+  "intro": "Nahim is a JNC-qualified youth worker and senior leader with over fifteen years across the voluntary, public and private sectors, all of it focused on young people and communities in East London.",
+  "columns": [
+    {
+      "title": "Current role",
+      "items": [
+        "Head of Strategic Engagement (Youth & Community), Poplar HARCA and Spotlight \u2014 Poplar HARCA\u2019s award-winning youth service in Tower Hamlets. He leads youth engagement and empowerment teams and the programmes they deliver."
+      ]
+    },
+    {
+      "title": "Boards and roles",
+      "items": [
+        "Community Advisory Board, The Young Foundation",
+        "London Youth \u2014 [ROLE TO CONFIRM: listed as Trustee on existing draft site]",
+        "Aziz Foundation Scholar [and Ambassador \u2014 to confirm]",
+        "Guest lecturer, University of East London (Youth and Community Work)",
+        "[Associate Fellow, Royal Commonwealth Society \u2014 to confirm]"
+      ]
+    },
+    {
+      "title": "Education",
+      "items": [
+        "Honorary Doctorate (DSc h.c.), Youth and Community Work \u2014 [INSTITUTION AND YEAR TO CONFIRM]",
+        "MSc Strategic Management of Projects, UCL Bartlett \u2014 Aziz Foundation scholarship",
+        "PGDip Law and Community Leadership \u2014 [INSTITUTION TO CONFIRM]",
+        "BA (Hons) Youth and Community Work, University of East London (JNC)"
+      ]
+    },
+    {
+      "title": "Recognition",
+      "items": [
+        "MBE, Queen\u2019s Birthday Honours 2021 \u2014 services to disadvantaged young people in Tower Hamlets",
+        "Honorary Doctorate in Youth and Community Work",
+        "Lifetime Achievement Award \u2014 [AWARDING BODY TO CONFIRM]",
+        "British Citizen Award \u2014 for voluntary service to the community"
+      ]
+    }
+  ],
+  "portrait": { "src": "/images/about-portrait.jpg", "alt": "Dr Nahim Ahmed MBE" }
+}

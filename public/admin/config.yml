@@ -1,0 +1,462 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Decap CMS Configuration — Nahim Ahmed Website
+# ─────────────────────────────────────────────────────────────────────────────
+# Docs: https://decapcms.org/docs/configuration-options/
+#
+# HOW IT WORKS
+# Nahim logs in at /admin → edits a field → clicks Publish → Decap commits
+# the updated JSON file to GitHub → Netlify detects the commit → rebuilds
+# the site → live site is updated (usually within 2 minutes).
+#
+# AUTH: Netlify Identity (Git Gateway). Nahim only needs an email + password.
+# He does NOT need a GitHub account.
+# ─────────────────────────────────────────────────────────────────────────────
+
+backend:
+  name: git-gateway
+  branch: main            # change to 'master' if your default branch is master
+
+# Uncomment the line below for LOCAL DEVELOPMENT ONLY (run: npx decap-server)
+# local_backend: true
+
+# Where uploaded images are saved on disk and how they appear in JSON
+media_folder: "public/images"
+public_folder: "/images"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# COLLECTIONS
+# One "files" collection groups all site sections into a clear sidebar.
+# ─────────────────────────────────────────────────────────────────────────────
+collections:
+  - name: content
+    label: "Website Content"
+    files:
+
+      # ── SITE & CONTACT ──────────────────────────────────────────────────────
+      - label: "Site & Contact"
+        name: site
+        file: "src/content/data/site.json"
+        fields:
+          - { label: "Site URL", name: url, widget: string, hint: "Full URL of the live site, e.g. https://nahimahmed.co.uk" }
+          - { label: "Full Name", name: name, widget: string }
+          - { label: "Short Name", name: shortName, widget: string }
+          - { label: "First Name", name: firstName, widget: string }
+          - { label: "Post-Nominals", name: postNominals, widget: string, hint: "e.g. DSc (h.c), MSc, PGDip, BA (Hons), JNC" }
+          - { label: "Tagline / Descriptor", name: descriptor, widget: string }
+          - label: "SEO"
+            name: seo
+            widget: object
+            fields:
+              - { label: "Page Title", name: title, widget: string }
+              - { label: "Meta Description", name: description, widget: text }
+              - { label: "OG Share Image", name: ogImage, widget: image, required: false, hint: "Recommended size: 1200 × 630 px" }
+              - { label: "Twitter / X Handle", name: twitterHandle, widget: string }
+          - { label: "Email Address", name: email, widget: string }
+          - { label: "Phone (optional)", name: phone, widget: string, required: false }
+          - { label: "Location", name: location, widget: string }
+          - label: "Social Links"
+            name: social
+            widget: object
+            fields:
+              - { label: "LinkedIn URL", name: linkedin, widget: string, required: false }
+              - { label: "Instagram URL", name: instagram, widget: string, required: false }
+              - { label: "X / Twitter URL", name: x, widget: string, required: false }
+          - { label: "Booking Button URL", name: bookingUrl, widget: string, hint: "Use #book to scroll to the on-page form, or paste an external URL (e.g. Calendly)" }
+          - label: "Booking Form Settings"
+            name: form
+            widget: object
+            fields:
+              - label: "Form Provider"
+                name: provider
+                widget: select
+                options: ["none", "formspree", "netlify", "custom"]
+                hint: "'none' = no submission (dev only). 'formspree' = set endpoint below. 'netlify' = auto on Netlify. 'custom' = POST to endpoint URL."
+              - { label: "Form Endpoint URL", name: endpoint, widget: string, required: false }
+          - label: "Navigation Links"
+            name: nav
+            widget: list
+            fields:
+              - { label: "Label", name: label, widget: string }
+              - { label: "Link (href)", name: href, widget: string }
+          - { label: "Copyright Name", name: copyrightName, widget: string }
+
+      # ── HERO ───────────────────────────────────────────────────────────────
+      - label: "Hero Section"
+        name: hero
+        file: "src/content/data/hero.json"
+        fields:
+          - { label: "Main Headline", name: headline, widget: string, hint: "The very large text at the top of the page" }
+          - { label: "Name (shown beneath headline)", name: name, widget: string }
+          - { label: "Descriptor / Tagline", name: descriptor, widget: string }
+          - label: "Primary Button"
+            name: primaryCta
+            widget: object
+            fields:
+              - { label: "Button Text", name: label, widget: string }
+              - { label: "Button Link", name: href, widget: string }
+          - label: "Secondary Button"
+            name: secondaryCta
+            widget: object
+            fields:
+              - { label: "Button Text", name: label, widget: string }
+              - { label: "Button Link", name: href, widget: string }
+          - { label: "Scroll Hint Text", name: scrollHint, widget: string }
+
+      # ── INTRO ──────────────────────────────────────────────────────────────
+      - label: "Intro Section"
+        name: intro
+        file: "src/content/data/intro.json"
+        fields:
+          - { label: "Lead Sentence", name: lead, widget: text, hint: "The bold opening line" }
+          - label: "Body Paragraphs"
+            name: paragraphs
+            widget: list
+            field: { label: "Paragraph", name: paragraph, widget: text }
+          - { label: "Pull Quote", name: pull, widget: text, hint: "The large italic quote displayed prominently" }
+
+      # ── STORY ──────────────────────────────────────────────────────────────
+      - label: "Story Section"
+        name: story
+        file: "src/content/data/story.json"
+        fields:
+          - { label: "Section Heading", name: heading, widget: string }
+          - { label: "Section Intro", name: intro, widget: text }
+          - label: "Story Chapters"
+            name: chapters
+            widget: list
+            fields:
+              - { label: "Chapter ID (no spaces, e.g. turning-point)", name: id, widget: string }
+              - { label: "Kicker (small text above statement)", name: kicker, widget: string }
+              - { label: "Statement (the big bold line)", name: statement, widget: text }
+              - label: "Body Paragraphs"
+                name: body
+                widget: list
+                field: { label: "Paragraph", name: paragraph, widget: text }
+              - label: "Chapter Image (optional)"
+                name: image
+                widget: object
+                fields:
+                  - { label: "Photo", name: src, widget: image, required: false, hint: "Leave blank if no image for this chapter" }
+                  - { label: "Alt Text", name: alt, widget: string, required: false }
+                  - { label: "Caption (optional)", name: caption, widget: string, required: false }
+          - label: "Timeline"
+            name: timeline
+            widget: list
+            fields:
+              - { label: "Year / Era", name: year, widget: string }
+              - { label: "Description", name: label, widget: string }
+
+      # ── ABOUT ──────────────────────────────────────────────────────────────
+      - label: "About Section"
+        name: about
+        file: "src/content/data/about.json"
+        fields:
+          - { label: "Section Heading", name: heading, widget: string }
+          - { label: "Introduction", name: intro, widget: text }
+          - label: "Columns"
+            name: columns
+            widget: list
+            fields:
+              - { label: "Column Title", name: title, widget: string }
+              - label: "Items"
+                name: items
+                widget: list
+                field: { label: "Item", name: item, widget: text }
+          - label: "Portrait Photo"
+            name: portrait
+            widget: object
+            fields:
+              - { label: "Photo", name: src, widget: image }
+              - { label: "Alt Text", name: alt, widget: string }
+
+      # ── SPEAKING ───────────────────────────────────────────────────────────
+      - label: "Speaking Section"
+        name: speaking
+        file: "src/content/data/speaking.json"
+        fields:
+          - { label: "Section Heading", name: heading, widget: string }
+          - { label: "Sub-heading", name: sub, widget: string }
+          - label: "Body Paragraphs"
+            name: paragraphs
+            widget: list
+            field: { label: "Paragraph", name: paragraph, widget: text }
+          - { label: "Topics Heading", name: topicsHeading, widget: string }
+          - label: "Speaking Topics"
+            name: topics
+            widget: list
+            fields:
+              - { label: "Topic Title", name: title, widget: string }
+              - { label: "Topic Description", name: blurb, widget: text }
+          - label: "Stage Photo"
+            name: image
+            widget: object
+            fields:
+              - { label: "Photo", name: src, widget: image }
+              - { label: "Alt Text", name: alt, widget: string }
+
+      # ── KEYNOTE ────────────────────────────────────────────────────────────
+      - label: "Keynote Section"
+        name: keynote
+        file: "src/content/data/keynote.json"
+        fields:
+          - { label: "Kicker (small label above title)", name: kicker, widget: string }
+          - { label: "Keynote Title", name: title, widget: string }
+          - { label: "Tagline", name: tagline, widget: string }
+          - { label: "Duration", name: duration, widget: string, hint: "e.g. 45–60 minutes" }
+          - label: "Origin Story Paragraphs"
+            name: origin
+            widget: list
+            field: { label: "Paragraph", name: paragraph, widget: text }
+          - label: "About This Keynote Paragraphs"
+            name: about
+            widget: list
+            field: { label: "Paragraph", name: paragraph, widget: text }
+          - label: "Key Takeaways"
+            name: takeaways
+            widget: list
+            field: { label: "Takeaway", name: takeaway, widget: string }
+          - label: "Ideal For"
+            name: idealFor
+            widget: list
+            field: { label: "Audience Type", name: audience, widget: string }
+          - label: "Call to Action Button"
+            name: cta
+            widget: object
+            fields:
+              - { label: "Button Text", name: label, widget: string }
+              - { label: "Button Link", name: href, widget: string }
+          - label: "Keynote Media"
+            name: media
+            widget: object
+            fields:
+              - { label: "Photo / Video Still", name: poster, widget: image }
+              - { label: "Alt Text", name: alt, widget: string }
+              - { label: "YouTube Video ID (optional)", name: youtubeId, widget: string, required: false, hint: "The part after ?v= in the YouTube URL, e.g. dQw4w9WgXcQ. Leave blank to show photo only." }
+          - label: "Other Keynotes"
+            name: otherKeynotes
+            widget: list
+            fields:
+              - { label: "Title", name: title, widget: string }
+              - { label: "Sub-title", name: sub, widget: string }
+              - { label: "Description", name: blurb, widget: text }
+              - { label: "Ideal For", name: idealFor, widget: string }
+
+      # ── SERVICES ───────────────────────────────────────────────────────────
+      - label: "Services Section"
+        name: services
+        file: "src/content/data/services.json"
+        fields:
+          - { label: "Section Heading", name: heading, widget: string }
+          - label: "Services"
+            name: items
+            widget: list
+            fields:
+              - { label: "Service Title", name: title, widget: string }
+              - { label: "Description", name: blurb, widget: text }
+
+      # ── CREDIBILITY ────────────────────────────────────────────────────────
+      - label: "Credibility Section"
+        name: credibility
+        file: "src/content/data/credibility.json"
+        fields:
+          - { label: "Section Heading", name: heading, widget: string }
+          - { label: "Intro Text", name: intro, widget: text }
+          - label: "Stats"
+            name: stats
+            widget: list
+            fields:
+              - { label: "Value (e.g. 15+)", name: value, widget: string }
+              - { label: "Description", name: label, widget: string }
+          - label: "Honours & Awards"
+            name: honours
+            widget: list
+            fields:
+              - { label: "Title", name: title, widget: string }
+              - { label: "Detail", name: detail, widget: string }
+          - { label: "Organisations Section Heading", name: organisationsHeading, widget: string }
+          - label: "Organisations"
+            name: organisations
+            widget: list
+            field: { label: "Organisation Name", name: org, widget: string }
+
+      # ── IMPACT ─────────────────────────────────────────────────────────────
+      - label: "Impact Section"
+        name: impact
+        file: "src/content/data/impact.json"
+        fields:
+          - { label: "Section Heading", name: heading, widget: string }
+          - { label: "Intro Text", name: intro, widget: text }
+          - label: "Impact Areas"
+            name: areas
+            widget: list
+            fields:
+              - { label: "Title", name: title, widget: string }
+              - { label: "Description", name: blurb, widget: text }
+          - { label: "Case Studies Heading", name: caseStudiesHeading, widget: string }
+          - label: "Case Studies"
+            name: caseStudies
+            widget: list
+            fields:
+              - { label: "Title", name: title, widget: string }
+              - { label: "Context (e.g. Employment and training, Poplar)", name: context, widget: string }
+              - { label: "The Challenge", name: challenge, widget: text }
+              - { label: "What Nahim Did", name: what, widget: text }
+              - { label: "What Happened", name: happened, widget: text }
+              - { label: "What Was Learned", name: learned, widget: text }
+              - label: "Photo (optional)"
+                name: image
+                widget: object
+                fields:
+                  - { label: "Photo", name: src, widget: image, required: false, hint: "Leave blank if no photo" }
+                  - { label: "Alt Text", name: alt, widget: string, required: false }
+              - { label: "Still a placeholder (shown dimmed on site)", name: placeholder, widget: boolean, default: false }
+
+      # ── MEDIA ──────────────────────────────────────────────────────────────
+      - label: "Media Section"
+        name: media
+        file: "src/content/data/media.json"
+        fields:
+          - { label: "Section Heading", name: heading, widget: string }
+          - { label: "Intro Text", name: intro, widget: string }
+          - label: "Media Items"
+            name: items
+            widget: list
+            fields:
+              - label: "Type"
+                name: type
+                widget: select
+                options:
+                  - { label: "Video", value: video }
+                  - { label: "Article", value: article }
+                  - { label: "Podcast", value: podcast }
+                  - { label: "Talk / Webinar", value: talk }
+              - { label: "Title", name: title, widget: string }
+              - { label: "Source / Publication", name: source, widget: string }
+              - { label: "Date (optional, e.g. June 2024)", name: date, widget: string, required: false }
+              - { label: "Link URL (optional)", name: href, widget: string, required: false }
+              - { label: "YouTube Video ID (optional)", name: youtubeId, widget: string, required: false, hint: "The part after ?v= in the YouTube URL. Adds a playable video embed." }
+              - label: "Thumbnail Image (optional)"
+                name: image
+                widget: object
+                fields:
+                  - { label: "Image", name: src, widget: image, required: false, hint: "Leave blank to show no thumbnail" }
+                  - { label: "Alt Text", name: alt, widget: string, required: false }
+              - { label: "Feature this item (shows prominently)", name: featured, widget: boolean, default: false }
+              - { label: "Still a placeholder (shown dimmed on site)", name: placeholder, widget: boolean, default: false }
+
+      # ── TESTIMONIALS ───────────────────────────────────────────────────────
+      - label: "Testimonials"
+        name: testimonials
+        file: "src/content/data/testimonials.json"
+        fields:
+          - { label: "Section Heading", name: heading, widget: string }
+          - label: "Testimonials"
+            name: items
+            widget: list
+            fields:
+              - { label: "Quote", name: quote, widget: text, hint: "The full testimonial text — no need to add quotation marks" }
+              - { label: "Name", name: name, widget: string }
+              - { label: "Job Title (optional)", name: role, widget: string, required: false }
+              - { label: "Organisation (optional)", name: organisation, widget: string, required: false }
+              - label: "Photo (optional)"
+                name: photo
+                widget: object
+                fields:
+                  - { label: "Photo", name: src, widget: image, required: false, hint: "Leave blank if no photo. Square images work best." }
+                  - { label: "Alt Text", name: alt, widget: string, required: false }
+              - { label: "Feature this testimonial (shows large at top)", name: featured, widget: boolean, default: false }
+              - { label: "Still a placeholder (shown dimmed on site)", name: placeholder, widget: boolean, default: false }
+
+      # ── THOUGHTS ───────────────────────────────────────────────────────────
+      - label: "Thoughts Section"
+        name: thoughts
+        file: "src/content/data/thoughts.json"
+        fields:
+          - { label: "Section Heading", name: heading, widget: string }
+          - { label: "Intro Text", name: intro, widget: text }
+          - label: "Thoughts / Posts"
+            name: items
+            widget: list
+            fields:
+              - { label: "Title", name: title, widget: string }
+              - { label: "Excerpt", name: excerpt, widget: text }
+              - { label: "Source (e.g. LinkedIn)", name: source, widget: string }
+              - { label: "Link URL", name: href, widget: string }
+              - { label: "Date (optional)", name: date, widget: string, required: false }
+              - label: "Display Size"
+                name: size
+                widget: select
+                required: false
+                options:
+                  - { label: "Large", value: large }
+                  - { label: "Small", value: small }
+          - label: "Call to Action Button"
+            name: cta
+            widget: object
+            fields:
+              - { label: "Button Text", name: label, widget: string }
+              - { label: "Button Link", name: href, widget: string }
+
+      # ── FAQ ────────────────────────────────────────────────────────────────
+      - label: "FAQ"
+        name: faq
+        file: "src/content/data/faq.json"
+        fields:
+          - { label: "Section Heading", name: heading, widget: string }
+          - label: "Questions & Answers"
+            name: items
+            widget: list
+            fields:
+              - { label: "Question", name: q, widget: string }
+              - { label: "Answer", name: a, widget: text }
+
+      # ── BOOKING FORM ───────────────────────────────────────────────────────
+      - label: "Booking Form"
+        name: book
+        file: "src/content/data/book.json"
+        fields:
+          - { label: "Section Heading", name: heading, widget: string }
+          - { label: "Intro Text", name: intro, widget: text }
+          - { label: "Email Line Text", name: emailLine, widget: string }
+          - { label: "Success Title", name: successTitle, widget: string }
+          - { label: "Success Body Text", name: successBody, widget: text }
+          - { label: "Submit Button Label", name: submitLabel, widget: string }
+          - { label: "Sending Label (while submitting)", name: sendingLabel, widget: string }
+          - { label: "Error Message", name: errorBanner, widget: text }
+          - label: "Event Type Options (dropdown)"
+            name: eventTypes
+            widget: list
+            field: { label: "Event Type", name: type, widget: string }
+
+      # ── FINAL CTA ──────────────────────────────────────────────────────────
+      - label: "Final CTA Section"
+        name: finalcta
+        file: "src/content/data/finalcta.json"
+        fields:
+          - { label: "First Line", name: line1, widget: string }
+          - { label: "Second Line", name: line2, widget: string }
+          - label: "Button"
+            name: cta
+            widget: object
+            fields:
+              - { label: "Button Text", name: label, widget: string }
+              - { label: "Button Link", name: href, widget: string }
+
+      # ── FOOTER ─────────────────────────────────────────────────────────────
+      - label: "Footer"
+        name: footer
+        file: "src/content/data/footer.json"
+        fields:
+          - { label: "Footer Blurb", name: blurb, widget: text }
+          - label: "Footer Navigation Links"
+            name: links
+            widget: list
+            fields:
+              - { label: "Label", name: label, widget: string }
+              - { label: "Link (href)", name: href, widget: string }
+          - label: "Legal Links (Privacy, Terms)"
+            name: legal
+            widget: list
+            fields:
+              - { label: "Label", name: label, widget: string }
+              - { label: "Link (href)", name: href, widget: string }

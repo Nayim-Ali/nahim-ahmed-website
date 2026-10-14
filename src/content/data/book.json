@@ -1,0 +1,21 @@
+{
+  "heading": "Tell me about your event.",
+  "intro": "Fill this in and I\u2019ll get back to you personally. If you\u2019re not sure about some of the details yet, that\u2019s fine \u2014 leave them blank.",
+  "emailLine": "Prefer email?",
+  "successTitle": "Got it. Thank you.",
+  "successBody": "I\u2019ll be in touch within a few days. If it\u2019s urgent, email me directly.",
+  "submitLabel": "Send enquiry",
+  "sendingLabel": "Sending\u2026",
+  "errorBanner": "Something went wrong sending that. Please try again, or email me directly.",
+  "eventTypes": [
+    "Conference keynote",
+    "Staff or leadership day",
+    "Panel or in-conversation",
+    "Workshop",
+    "School, college or university",
+    "Community event",
+    "Podcast or media",
+    "Advisory",
+    "Something else"
+  ]
+}
