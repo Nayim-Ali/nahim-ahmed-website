@@ -1,0 +1,80 @@
+---
+import { story, intro } from '../content/content';
+const chapters = story.chapters.filter((ch) => ch.statement && !ch.statement.startsWith('[')).slice(0,3);
+---
+<section class="journey" id="journey" aria-labelledby="journey-heading" data-journey>
+  <div class="wrap journey__intro">
+    <div class="journey__eyebrow"><span>01 / THE HUMAN STORY</span><span class="journey__eyebrow-line"></span></div>
+    <h2 id="journey-heading">The message isn't<br/>from a textbook.<br/><em>It's lived.</em></h2>
+    <p>{intro.lead}</p>
+  </div>
+  <div class="wrap journey__body">
+    <aside class="journey__rail" aria-hidden="true">
+      <span class="journey__rail-label">A STORY IN THREE MOMENTS</span>
+      <span class="journey__rail-counter"><span data-chapter-current>01</span><span class="journey__rail-slash">/</span>{String(chapters.length).padStart(2,'0')}</span>
+      <span class="journey__rail-track"><span class="journey__rail-progress" data-journey-progress></span></span>
+    </aside>
+    <div class="journey__cards">
+      {chapters.map((chapter,i)=>(
+        <article class="journey__card" data-journey-card>
+          <div class="journey__card-head"><span>{String(i+1).padStart(2,'0')} / {chapter.kicker}</span><span aria-hidden="true">↗</span></div>
+          <div class="journey__card-main">
+            <h3>{chapter.statement}</h3>
+            <p>{chapter.body?.[0]}</p>
+          </div>
+          <span class="journey__card-watermark" aria-hidden="true">{String(i+1).padStart(2,'0')}</span>
+        </article>
+      ))}
+      <a class="journey__link" href="/about/">Explore the full story <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>
+<style>
+.journey{background:#f5f5ef;color:#171918;padding:clamp(5rem,11vw,11rem) 0}
+.journey__intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(15rem,.38fr);column-gap:2rem;row-gap:2rem;margin-bottom:clamp(4rem,9vw,9rem)}
+.journey__eyebrow{grid-column:1/-1;display:flex;align-items:center;gap:1.5rem;font-size:.77rem;font-weight:700;letter-spacing:.2em;color:#827923}
+.journey__eyebrow-line{width:clamp(3rem,12vw,11rem);height:1px;background:#bcb79b}
+.journey__intro h2{font-size:clamp(3.3rem,7.5vw,8.6rem);letter-spacing:-.065em;line-height:.96;font-weight:700}
+.journey__intro h2 em{color:#a39425;font-weight:500}
+.journey__intro>p{font-size:clamp(1.1rem,1.65vw,1.48rem);line-height:1.5;align-self:end;max-width:21ch;color:#454d47}
+.journey__body{display:grid;grid-template-columns:minmax(180px,1fr) 2.4fr;gap:clamp(2rem,6vw,7rem)}
+.journey__rail{position:sticky;top:8rem;align-self:start;display:flex;flex-direction:column;gap:1.2rem}
+.journey__rail-label{font-size:.75rem;font-weight:700;letter-spacing:.15em;color:#667066}
+.journey__rail-counter{font-family:var(--display);font-size:clamp(3.2rem,6vw,7rem);font-weight:700;line-height:1;letter-spacing:-.07em}
+.journey__rail-slash{color:#c3bd91;padding:0 .25em}
+.journey__rail-track{width:100%;max-width:200px;height:3px;background:#e0dfd3}
+.journey__rail-progress{display:block;width:33.33%;height:100%;background:#9e8b1d;transition:width .35s ease}
+.journey__cards{display:grid;gap:1.4rem}
+.journey__card{position:relative;isolation:isolate;min-height:clamp(330px,37vw,510px);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(1.7rem,4vw,4.2rem);color:#f5f5ef;background:linear-gradient(125deg,#202b26,#101b17 85%);transition:transform .4s ease}
+.journey__card:nth-child(2){background:linear-gradient(125deg,#33382e,#20261f 85%)}
+.journey__card:nth-child(3){background:linear-gradient(125deg,#26352e,#171c1c 85%)}
+.journey__card:before{content:'';position:absolute;inset:-50% -45% auto auto;width:80%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(212,197,74,.24);box-shadow:0 0 0 5rem rgba(212,197,74,.025),0 0 0 11rem rgba(212,197,74,.025);z-index:-1}
+.journey__card-head{display:flex;justify-content:space-between;gap:1rem;font-size:.8rem;font-weight:700;letter-spacing:.17em;color:#e0d16b;text-transform:uppercase}
+.journey__card-head span:last-child{font-size:1.4rem}
+.journey__card-main{position:relative;z-index:1}
+.journey__card h3{font-size:clamp(2.3rem,4.3vw,5.3rem);line-height:1.04;letter-spacing:-.052em;max-width:15ch;margin-bottom:1.4rem}
+.journey__card p{font-size:clamp(.96rem,1.1vw,1.13rem);line-height:1.55;max-width:48ch;color:#d0d6ce}
+.journey__card-watermark{position:absolute;right:.14em;bottom:-.3em;color:rgba(212,197,74,.06);font-family:var(--display);font-size:clamp(9rem,21vw,24rem);letter-spacing:-.13em;line-height:1;z-index:0;pointer-events:none}
+.journey__link{display:flex;justify-content:space-between;align-items:center;gap:1rem;text-decoration:none;border-bottom:1px solid #171918;padding:1.4rem 0;font-size:clamp(1.2rem,2vw,1.7rem);font-weight:700;font-family:var(--display);margin-top:1rem}
+.journey__link span{transition:transform .2s}
+.journey__link:hover span{transform:translate(3px,-3px)}
+@media(max-width:850px){.journey__intro{grid-template-columns:1fr}.journey__intro>p{max-width:40ch}.journey__body{grid-template-columns:1fr;gap:2rem}.journey__rail{position:static;flex-direction:row;align-items:center;justify-content:space-between}.journey__rail-counter{font-size:2rem}.journey__rail-track{display:none}}
+@media(prefers-reduced-motion:reduce){.journey__rail-progress,.journey__card{transition:none}}
+</style>
+<script>
+const journey=document.querySelector<HTMLElement>('[data-journey]');
+if(journey && 'IntersectionObserver' in window){
+ const cards=Array.from(journey.querySelectorAll<HTMLElement>('[data-journey-card]'));
+ const counter=journey.querySelector<HTMLElement>('[data-chapter-current]');
+ const progress=journey.querySelector<HTMLElement>('[data-journey-progress]');
+ const observer=new IntersectionObserver(entries=>{
+  const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+  if(!visible)return;
+  const index=cards.indexOf(visible.target as HTMLElement);
+  if(index<0)return;
+  if(counter)counter.textContent=String(index+1).padStart(2,'0');
+  if(progress)progress.style.width=String(((index+1)/cards.length)*100)+'%';
+ },{threshold:[.15,.4,.7]});
+ cards.forEach(card=>observer.observe(card));
+}
+</script>

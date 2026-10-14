@@ -1,71 +1,78 @@
 ---
 import Base from '../layouts/Base.astro';
-import { site } from '../content/site';
 import Hero from '../components/Hero.astro';
-import Intro from '../components/Intro.astro';
-import Story from '../components/Story.astro';
-import About from '../components/About.astro';
-import Speaking from '../components/Speaking.astro';
-import Keynote from '../components/Keynote.astro';
-import Services from '../components/Services.astro';
+import Journey from '../components/Journey.astro';
+import TopicExplorer from '../components/TopicExplorer.astro';
 import Credibility from '../components/Credibility.astro';
-import Impact from '../components/Impact.astro';
-import Media from '../components/Media.astro';
+
 import Testimonials from '../components/Testimonials.astro';
-import Thoughts from '../components/Thoughts.astro';
-import FAQ from '../components/FAQ.astro';
-import BookingForm from '../components/BookingForm.astro';
 import FinalCta from '../components/FinalCta.astro';
-import { faq } from '../content/content';
-
-const jsonLd = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Nahim Ahmed',
-    honorificPrefix: 'Dr',
-    honorificSuffix: 'MBE',
-    jobTitle: 'Keynote speaker and Head of Strategic Engagement (Youth & Community)',
-    worksFor: { '@type': 'Organization', name: 'Poplar HARCA' },
-    url: site.url,
-    image: new URL(site.seo.ogImage, site.url).href,
-    sameAs: [site.social.linkedin, site.social.instagram, site.social.x].filter(Boolean),
-    knowsAbout: ['Youth work', 'Youth leadership', 'Community development', 'Resilience', 'Social change'],
-    address: { '@type': 'PostalAddress', addressLocality: 'London', addressCountry: 'GB' },
-    award: ['MBE (2021)', 'Honorary Doctorate in Youth and Community Work', 'Lifetime Achievement Award', 'British Citizen Award'],
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: site.name,
-    url: site.url,
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faq.items.map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
-    })),
-  },
-];
+import Button from '../components/Button.astro';
 ---
-
-<Base jsonLd={jsonLd}>
+<Base>
   <Hero />
-  <Intro />
-  <Story />
-  <About />
-  <Speaking />
-  <Keynote />
-  <Services />
+  <Journey />
+  <section class="section home-paths">
+    <div class="wrap">
+      <p class="home-paths__eyebrow">DISCOVER NAHIM</p>
+      <h2 class="home-paths__heading">More than a story.<br/>A reason to act.</h2>
+      <div class="home-paths__grid">
+        <a href="/about/" class="home-paths__card">
+          <span class="home-paths__no">01 / HIS JOURNEY</span>
+          <strong>Meet Nahim</strong>
+          <span>Explore the people, experiences and community that shaped his purpose.</span>
+          <span class="home-paths__arrow">Explore his story ↗</span>
+        </a>
+        <a href="/keynote-speaking/" class="home-paths__card">
+          <span class="home-paths__no">02 / HIS MESSAGE</span>
+          <strong>Keynote speaking</strong>
+          <span>Talks on leadership, resilience, youth work and meaningful change.</span>
+          <span class="home-paths__arrow">Explore keynotes ↗</span>
+        </a>
+        <a href="/resources/" class="home-paths__card">
+          <span class="home-paths__no">03 / HIS VOICE</span>
+          <strong>Resources & media</strong>
+          <span>Interviews, ideas and conversations beyond the stage.</span>
+          <span class="home-paths__arrow">Explore resources ↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
   <Credibility />
-  <Impact />
-  <Media />
+  <TopicExplorer />
+  <section class="statement-band" aria-label="Nahim's approach">
+    <div class="wrap">
+      <p class="statement-band__eyebrow">THE REAL DIFFERENCE</p>
+      <p class="statement-band__quote">Not another motivational speech. <em>A conversation that changes what happens next.</em></p>
+      <div class="statement-band__footer"><span>THE MESSAGE IS PERSONAL. THE IMPACT IS SHARED.</span><a href="/keynote-speaking/">Discover keynote speaking <span aria-hidden="true">↗</span></a></div>
+    </div>
+  </section>
   <Testimonials />
-  <Thoughts />
-  <FAQ />
-  <BookingForm />
   <FinalCta />
 </Base>
+<style>
+.home-paths{background:#f6f5f0}
+.home-paths__eyebrow{font-size:.78rem;letter-spacing:.2em;color:#82751c;font-weight:700;margin-bottom:1rem}
+.home-paths__heading{font-size:clamp(2.8rem,6vw,6rem);letter-spacing:-.045em;margin-bottom:3rem}
+.home-paths__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.home-paths__card{display:flex;flex-direction:column;gap:1.25rem;padding:clamp(1.5rem,3vw,3rem);border:1px solid #d5d5cc;color:#171918;text-decoration:none;min-height:21rem;transition:background .2s,transform .2s}
+.home-paths__card:hover{background:#ecebd8;transform:translateY(-4px)}
+.home-paths__card strong{font-family:var(--display);font-size:clamp(1.7rem,2.8vw,2.9rem);line-height:1.05}
+.home-paths__card>span:nth-child(3){font-size:1rem;color:#555c55}
+.home-paths__no{font-size:.72rem;letter-spacing:.13em;color:#82751c;font-weight:700}
+.home-paths__arrow{margin-top:auto;font-size:.95rem;font-weight:700}
+.home-keynote{background:#171918;color:#f6f5f0;padding:5rem 0 3rem}
+.home-keynote__heading{display:flex;gap:2rem;align-items:end;justify-content:space-between}
+.home-keynote h2{font-size:clamp(2.6rem,5vw,5rem);max-width:13ch}
+@media(max-width:760px){.home-paths__grid{grid-template-columns:1fr}.home-paths__card{min-height:15rem}.home-keynote__heading{align-items:start;flex-direction:column}}
+.statement-band{padding:clamp(7rem,13vw,13rem) 0;background:#171918;color:#f6f5f0;position:relative;overflow:hidden}
+.statement-band:before{content:'';position:absolute;right:-9vw;top:-9vw;width:46vw;aspect-ratio:1;border-radius:50%;border:1px solid #d4c54a3d;box-shadow:0 0 0 7vw #d4c54a09,0 0 0 14vw #d4c54a05}
+.statement-band .wrap{position:relative;z-index:1}
+.statement-band__eyebrow{color:#d4c54a;font-size:.77rem;letter-spacing:.2em;font-weight:700;margin-bottom:clamp(3rem,7vw,7rem)}
+.statement-band__quote{font-family:var(--display);font-size:clamp(3rem,7.2vw,8rem);font-weight:700;line-height:.98;letter-spacing:-.06em;max-width:15ch}
+.statement-band__quote em{color:#e0d16b;font-weight:500}
+.statement-band__footer{display:flex;justify-content:space-between;gap:2rem;align-items:center;flex-wrap:wrap;border-top:1px solid #ffffff45;margin-top:clamp(4rem,8vw,8rem);padding-top:1.5rem}
+.statement-band__footer>span{font-size:.77rem;letter-spacing:.13em;color:#cdd2ca}
+.statement-band__footer a{color:#e0d16b;text-decoration:none;font-weight:700;font-size:1.05rem}
+@media(max-width:760px){.statement-band__quote{font-size:clamp(3rem,11vw,5rem)}}
+</style>

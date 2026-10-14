@@ -1,5 +1,8 @@
 ---
 import { credibility } from '../content/content';
+const stats = credibility.stats.filter((s) => !/\[|\]/.test(s.value + s.label));
+const honours = credibility.honours.filter((h) => !/\[|\]/.test(h.title + h.detail));
+const organisations = credibility.organisations.filter((o) => !/\[|\]/.test(o));
 ---
 <section id="credibility" class="section cred" aria-labelledby="cred-title">
   <div class="wrap">
@@ -9,7 +12,7 @@ import { credibility } from '../content/content';
     </div>
 
     <dl class="cred__stats">
-      {credibility.stats.map((s, i) => (
+      {stats.map((s, i) => (
         <div class="stat reveal" style={`--d:${i * 80}ms`}>
           <dd class="stat__value">{s.value}</dd>
           <dt class="stat__label">{s.label}</dt>
@@ -18,7 +21,7 @@ import { credibility } from '../content/content';
     </dl>
 
     <ul class="cred__honours">
-      {credibility.honours.map((h, i) => (
+      {honours.map((h, i) => (
         <li class="honour reveal" style={`--d:${i * 60}ms`}>
           <span class="honour__title">{h.title}</span>
           <span class="honour__detail">{h.detail}</span>
@@ -29,7 +32,7 @@ import { credibility } from '../content/content';
     <div class="cred__orgs reveal">
       <h3 class="cred__orgs-title">{credibility.organisationsHeading}</h3>
       <ul class="cred__org-list">
-        {credibility.organisations.map((o) => <li>{o}</li>)}
+        {organisations.map((o) => <li>{o}</li>)}
       </ul>
     </div>
   </div>

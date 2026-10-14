@@ -1,24 +1,24 @@
 {
   "nav": [
     {
-      "label": "Story",
-      "href": "#story"
+      "label": "Home",
+      "href": "/"
     },
     {
-      "label": "Speaking",
-      "href": "#speaking"
+      "label": "About",
+      "href": "/about/"
     },
     {
-      "label": "Impact",
-      "href": "#impact"
+      "label": "Keynote Speaking",
+      "href": "/keynote-speaking/"
     },
     {
-      "label": "Media",
-      "href": "#media"
+      "label": "Resources",
+      "href": "/resources/"
     },
     {
-      "label": "Thoughts",
-      "href": "#thoughts"
+      "label": "Contact",
+      "href": "/contact/"
     }
   ],
   "form": {
@@ -43,15 +43,15 @@
   "descriptor": "KEYNOTE speaker. Youth worker. Born and raised in Tower Hamlets.",
   "copyrightName": "Dr Nahim Ahmed MBE",
   "location": "London, UK",
-  "bookingUrl": "#book",
+  "bookingUrl": "/contact/",
   "postNominals": "DSc (h.c), MSc, PGDip, BA (Hons), JNC",
   "hero": {
-    "poster": "/media/hero-poster.jpg",
-    "videoDesktop": "/media/hero-desktop.mp4",
-    "videoMobile": "/media/hero-mobile.mp4",
+    "poster": "/media/speaker-stage-placeholder.svg",
+    "videoDesktop": "",
+    "videoMobile": "",
     "videoWebm": "",
     "captions": "",
-    "hasAudio": true
+    "hasAudio": false
   },
   "firstName": "Nahim",
   "email": "hello@nahimahmed.co.uk",
