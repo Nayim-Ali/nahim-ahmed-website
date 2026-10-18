@@ -46,9 +46,9 @@
   "bookingUrl": "/contact/",
   "postNominals": "DSc (h.c), MSc, PGDip, BA (Hons), JNC",
   "hero": {
-    "poster": "/media/speaker-stage-placeholder.svg",
-    "videoDesktop": "",
-    "videoMobile": "",
+    "poster": "/media/nahim-keynote-poster.webp",
+    "videoDesktop": "/media/nahim-keynote-loop.mp4",
+    "videoMobile": "/media/nahim-keynote-loop-mobile.mp4",
     "videoWebm": "",
     "captions": "",
     "hasAudio": false
