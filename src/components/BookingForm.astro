@@ -16,13 +16,21 @@ const netlify = f.provider === 'netlify';
   <div class="wrap book__grid">
     <div class="book__intro">
       <h2 id="book-title" class="book__title reveal">{book.heading}</h2>
-      <p class="lede reveal" style="--d:80ms">{book.intro}</p>
+      <p class="lede reveal" style="--d:80ms">{f.provider === 'none' ? "For speaking enquiries, email Nahim with your event date, location, audience and the topic you have in mind." : book.intro}</p>
       <p class="book__email reveal" style="--d:160ms">
         {book.emailLine} <a href={`mailto:${site.email}`}>{site.email}</a>
       </p>
     </div>
 
     <div class="book__form">
+    {f.provider === "none" ? (
+      <div class="book__fallback">
+        <h3>Bring Nahim to your event.</h3>
+        <p>Send the details directly by email. Include your event date, location, audience and the kind of talk you have in mind.</p>
+        <a class="book__fallback-action" href={`mailto:${site.email}?subject=${encodeURIComponent("Speaking enquiry for Nahim Ahmed")}`}>Email a speaking enquiry <span aria-hidden="true">↗</span></a>
+        <p class="book__fallback-address">{site.email}</p>
+      </div>
+    ) : (
     <form
       class="form reveal"
       style="--d:120ms"
@@ -113,6 +121,7 @@ const netlify = f.provider === 'netlify';
         <p class="small muted">Required fields are marked <span class="req">*</span></p>
       </div>
     </form>
+    )}
 
     <div class="form__success" hidden data-form-success tabindex="-1">
       <h3>{book.successTitle}</h3>
@@ -129,6 +138,12 @@ const netlify = f.provider === 'netlify';
   .book__title { font-size: var(--t-2xl); max-width: 10ch; }
   .book__email { color: var(--ink-2); }
 
+  .book__fallback{padding:clamp(2rem,4vw,4rem);background:#171918;color:#f6f5f0;display:grid;gap:1.5rem;align-content:center;min-height:23rem}
+  .book__fallback h3{font-family:var(--display);font-size:clamp(2rem,3vw,3.5rem);line-height:1.05}
+  .book__fallback p{color:#d4d8d1;line-height:1.6}
+  .book__fallback-action{display:inline-flex;gap:1.5rem;align-items:center;justify-content:space-between;text-decoration:none;color:#171918;background:#d4c54a;font-family:var(--display);font-weight:700;padding:1.1rem 1.3rem;max-width:22rem}
+  .book__fallback-action:hover{background:#e6d876}
+  .book__fallback-address{font-size:.84rem}
   .form { display: grid; gap: 2.5rem; }
   .form.is-sending { opacity: 0.7; pointer-events: none; }
   .form__fs { border: 0; padding: 0; margin: 0; display: grid; gap: 1.5rem; min-width: 0; }

@@ -1,6 +1,7 @@
 ---
 import { impact } from '../content/content';
 import TopicCard from './TopicCard.astro';
+const visibleCases = impact.caseStudies.filter((item) => !item.placeholder && !JSON.stringify(item).includes('['));
 ---
 <section id="impact" class="section section--dark impact" aria-labelledby="impact-title">
   <div class="wrap">
@@ -13,9 +14,9 @@ import TopicCard from './TopicCard.astro';
       {impact.areas.map((a, i) => <TopicCard title={a.title} blurb={a.blurb} index={i} />)}
     </div>
 
-    <h3 class="impact__cs-title reveal">{impact.caseStudiesHeading}</h3>
+    {visibleCases.length > 0 && <h3 class="impact__cs-title reveal">{impact.caseStudiesHeading}</h3>}
     <div class="impact__cases">
-      {impact.caseStudies.map((c, i) => (
+      {visibleCases.map((c, i) => (
         <article class:list={['case reveal', { 'case--ph': c.placeholder }]} style={`--d:${i * 90}ms`}>
           {c.image && (
             <div class="ph case__img" data-label={c.image.alt}>
