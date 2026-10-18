@@ -1,21 +1,21 @@
 {
   "kicker": "Signature keynote",
-  "title": "You\u2019re Just a Youth Worker",
-  "tagline": "And that\u2019s exactly the point.",
-  "duration": "45\u201360 minutes",
+  "title": "You’re Just a Youth Worker",
+  "tagline": "And that’s exactly the point.",
+  "duration": "45–60 minutes",
   "origin": [
     "Every youth worker has heard some version of it. From a parent, a partner, a professional in a suit, sometimes from a colleague. Just a youth worker.",
-    "[KEYNOTE ORIGIN STORY \u2014 a short paragraph from Nahim on the specific moment or conversation that sparked this talk.]"
+    "[KEYNOTE ORIGIN STORY — a short paragraph from Nahim on the specific moment or conversation that sparked this talk.]"
   ],
   "about": [
-    "This keynote takes that line apart. Nahim shows how the \u201cjust a youth worker\u201d he was told he was became a catalyst for systemic change in one of the country\u2019s most deprived boroughs, and makes the case that youth work is one of the most important leadership roles in society.",
-    "It\u2019s personal, it\u2019s direct, and it\u2019s not just for youth workers. Anyone who has been underestimated, or who leads people who are, will recognise themselves in it."
+    "This keynote takes that line apart. Nahim shows how the “just a youth worker” he was told he was became a catalyst for systemic change in one of the country’s most deprived boroughs, and makes the case that youth work is one of the most important leadership roles in society.",
+    "It’s personal, it’s direct, and it’s not just for youth workers. Anyone who has been underestimated, or who leads people who are, will recognise themselves in it."
   ],
   "takeaways": [
     "A different way of seeing the people at the bottom of your organisation chart",
-    "What trust actually looks like, and why it\u2019s built in ordinary moments",
+    "What trust actually looks like, and why it’s built in ordinary moments",
     "How to lead from lived experience without being defined by it",
-    "Why \u201chard to reach\u201d is a mirror, not a label",
+    "Why “hard to reach” is a mirror, not a label",
     "Practical ways to look after the people who look after everyone else"
   ],
   "idealFor": [
@@ -25,10 +25,13 @@
     "Local authorities and housing associations",
     "Leadership teams"
   ],
-  "cta": { "label": "Book this keynote", "href": "#book" },
+  "cta": {
+    "label": "Book this keynote",
+    "href": "/contact/"
+  },
   "media": {
     "poster": "/images/keynote-still.jpg",
-    "alt": "Nahim delivering \u201cYou\u2019re Just a Youth Worker\u201d",
+    "alt": "Nahim delivering “You’re Just a Youth Worker”",
     "youtubeId": ""
   },
   "otherKeynotes": [

@@ -2,6 +2,7 @@
 import { keynote } from '../content/content';
 import Button from './Button.astro';
 import MediaEmbed from './MediaEmbed.astro';
+const confirmedOrigin = keynote.origin.filter((text) => !text.includes('[') && !text.includes(']'));
 ---
 
 <section id="keynote" class="section keynote" aria-labelledby="keynote-title">
@@ -26,7 +27,7 @@ import MediaEmbed from './MediaEmbed.astro';
       <div class="keynote__text">
         <div class="keynote__block reveal">
           <h3>Where it comes from</h3>
-          {keynote.origin.map((p) => <p>{p}</p>)}
+          {confirmedOrigin.map((p) => <p>{p}</p>)}
         </div>
         <div class="keynote__block reveal" style="--d:100ms">
           <h3>What it's about</h3>

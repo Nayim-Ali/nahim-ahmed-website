@@ -1,259 +1,140 @@
 ---
 import { site } from '../content/site';
 import { hero } from '../content/content';
-import Button from './Button.astro';
-const v = site.hero;
+
+const video = site.hero;
+const words = hero.headline.trim().split(/\s+/);
+const lastWord = words.length > 1 ? words.pop() : '';
+const mainWords = words.length ? words.join(' ') : hero.headline;
+const hasVideo = Boolean(video.videoDesktop || video.videoMobile || video.videoWebm);
 ---
 
 <section class="hero" data-hero aria-labelledby="hero-title">
-  <div class="hero__media" aria-hidden="true">
-    <!--
-      The video is NOT loaded on first paint. Sources are set from data attributes after
-      window load (or immediately if the page is already loaded), so the poster shows first
-      and the rest of the page isn't blocked. See script below.
-    -->
-    <video
-      class="hero__video"
-      poster={v.poster}
-      muted
-      loop
-      playsinline
-      preload="none"
-      data-hero-video
-      data-src-desktop={v.videoDesktop}
-      data-src-mobile={v.videoMobile || v.videoDesktop}
-      data-src-webm={v.videoWebm}
-    >
-      {v.captions && <track kind="captions" src={v.captions} srclang="en" label="English" default />}
-    </video>
-    <div class="hero__poster" style={`background-image:url('${v.poster}')`} data-hero-poster></div>
-    <div class="hero__overlay"></div>
-  </div>
-
-  <div class="wrap hero__content">
-    <h1 id="hero-title" class="hero__title lines">
-      {hero.headline.split(' ').map((w, i, arr) => (
-        <span>{w}{i < arr.length - 1 ? ' ' : ''}</span>
-      ))}
-    </h1>
-    <div class="hero__meta reveal" style="--d:300ms">
-      <p class="hero__name">{hero.name}</p>
-      <p class="hero__desc">{hero.descriptor}</p>
-    </div>
-    <div class="hero__actions reveal" style="--d:420ms">
-      <Button href={hero.primaryCta.href} size="lg">{hero.primaryCta.label}</Button>
-      <Button href={hero.secondaryCta.href} variant="light" size="lg">{hero.secondaryCta.label}</Button>
-    </div>
-  </div>
-
-  <div class="hero__bottom wrap">
-    <a href="#intro" class="hero__scroll" aria-label="Scroll to introduction">
-      <span>{hero.scrollHint}</span>
-      <span class="hero__scroll-line"></span>
-    </a>
-    {v.hasAudio && (
-      <button class="hero__sound" type="button" aria-pressed="false" data-hero-sound hidden>
-        <span class="hero__sound-icon" aria-hidden="true"></span>
-        <span data-hero-sound-label>Sound on</span>
-      </button>
+  <div class="hero__visual" aria-hidden="true">
+    <div
+      class="hero__poster"
+      style={`background-image: url("${video.poster}"), url("/media/speaker-stage-placeholder.svg")`}
+    ></div>
+    {hasVideo && (
+      <video
+        class="hero__video"
+        poster={video.poster}
+        muted
+        loop
+        playsinline
+        preload="none"
+        data-hero-video
+        data-src-desktop={video.videoDesktop}
+        data-src-mobile={video.videoMobile || video.videoDesktop}
+        data-src-webm={video.videoWebm}
+      >
+        {video.captions && <track kind="captions" src={video.captions} srclang="en" label="English" default />}
+      </video>
     )}
+    <div class="hero__shade"></div>
+  </div>
+
+  <div class="wrap hero__inner">
+    <div class="hero__copy">
+      <p class="hero__eyebrow">DR NAHIM AHMED MBE <span aria-hidden="true">/</span> KEYNOTE SPEAKER</p>
+      <h1 id="hero-title" class="hero__headline">
+        <span>{mainWords}</span>
+        {lastWord && <em>{lastWord}</em>}
+      </h1>
+      <p class="hero__subtitle">{hero.descriptor}</p>
+      <div class="hero__actions">
+        <a class="hero__cta" href={hero.primaryCta.href}>{hero.primaryCta.label}<span aria-hidden="true">↗</span></a>
+        <a class="hero__secondary" href={hero.secondaryCta.href}>{hero.secondaryCta.label}<span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <a class="hero__scroll" href="#journey" aria-label="Explore Nahim's story below">
+      <span>EXPLORE HIS STORY</span><span aria-hidden="true">↓</span>
+    </a>
   </div>
 </section>
 
 <style>
-  .hero {
-    position: relative;
-    min-height: 100svh;
-    display: grid;
-    grid-template-rows: 1fr auto;
-    color: var(--paper);
-    background: var(--ink);
-    overflow: hidden;
-  }
-  .hero__media { position: absolute; inset: 0; }
-  .hero__video, .hero__poster {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .hero__poster {
-    background-size: cover;
-    background-position: center;
-    background-color: #2a2622;
-    transition: opacity 1s var(--ease);
-  }
-  .hero__video { opacity: 0; transition: opacity 1s var(--ease); }
-  .hero.is-playing .hero__video { opacity: 1; }
-  .hero.is-playing .hero__poster { opacity: 0; }
-  .hero__overlay {
-    position: absolute;
-    inset: 0;
+  .hero { position:relative; isolation:isolate; min-height:100svh; color:#fff; background:#111714; overflow:hidden; }
+  .hero__visual,.hero__poster,.hero__video,.hero__shade { position:absolute; inset:0; width:100%; height:100%; }
+  .hero__visual { pointer-events:none; overflow:hidden; }
+  .hero__poster { background-size:cover,cover; background-position:center 42%; background-color:#19221e; }
+  .hero__video { object-fit:cover; object-position:center center; opacity:0; transition:opacity 1.1s ease; }
+  .hero.is-playing .hero__video { opacity:1; }
+  .hero__shade {
     background:
-      linear-gradient(to top, rgba(28,26,23,0.82) 0%, rgba(28,26,23,0.35) 45%, rgba(28,26,23,0.25) 100%);
+      linear-gradient(to bottom,rgba(10,15,13,.42) 0%,rgba(10,15,13,.02) 32%,rgba(10,15,13,.23) 56%,rgba(7,11,9,.79) 100%),
+      linear-gradient(90deg,rgba(10,15,13,.18),transparent 60%);
   }
-
-  .hero__content {
-    position: relative;
-    z-index: 1;
-    align-self: end;
-    padding-top: 8rem;
-    padding-bottom: clamp(2rem, 6vh, 5rem);
-    display: grid;
-    gap: clamp(1.5rem, 3vw, 2.5rem);
+  .hero__inner { position:relative; z-index:1; min-height:100svh; display:flex; align-items:center; flex-direction:column; justify-content:flex-end; padding-top:8rem; padding-bottom:2rem; }
+  .hero__copy { width:100%; display:flex; flex-direction:column; align-items:center; text-align:center; margin:auto 0 clamp(2.3rem,4.5vh,4.5rem); padding-top:clamp(11rem,31vh,24rem); }
+  .hero__eyebrow { font-size:clamp(.72rem,1vw,.9rem); font-weight:700; letter-spacing:.19em; margin-bottom:clamp(1.1rem,2.5vh,2rem); color:rgba(255,255,255,.95); text-shadow:0 2px 16px #0009; }
+  .hero__eyebrow span { color:#e0d16b; padding-inline:.6rem; }
+  .hero__headline { max-width:1100px; font-size:clamp(3.2rem,6.3vw,7.6rem); line-height:.98; letter-spacing:-.06em; font-weight:700; text-shadow:0 2px 35px #0006; text-wrap:balance; }
+  .hero__headline span { color:#fff; }
+  .hero__headline em { color:#e2d46f; font-style:normal; white-space:nowrap; }
+  .hero__subtitle { max-width:55ch; margin:clamp(1.1rem,2.8vh,2rem) 0 0; font-size:clamp(1rem,1.65vw,1.45rem); color:#f5f5ed; line-height:1.45; text-shadow:0 1px 12px #000; }
+  .hero__actions { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:clamp(.8rem,2vw,1.5rem); margin-top:clamp(1.5rem,3vh,2.6rem); }
+  .hero__cta,.hero__secondary { display:inline-flex; align-items:center; justify-content:center; gap:1.7rem; text-decoration:none; font-family:var(--display); font-weight:700; font-size:clamp(.93rem,1.1vw,1.08rem); min-height:3.65rem; transition:transform .25s,background .25s; }
+  .hero__cta { padding:1rem 1.5rem; color:#171918; background:#d4c54a; border:1px solid #d4c54a; }
+  .hero__cta:hover { background:#e5d873; transform:translateY(-3px); }
+  .hero__secondary { padding:1rem .5rem; border-bottom:1px solid #fff9; color:#fff; }
+  .hero__secondary:hover { transform:translateY(-3px); }
+  .hero__cta span,.hero__secondary span { font-size:1.3em; }
+  .hero__scroll { width:100%; display:flex; justify-content:space-between; align-items:center; text-decoration:none; font-size:.72rem; letter-spacing:.17em; font-weight:700; color:#ffffffdc; border-top:1px solid #ffffff45; padding-top:1rem; }
+  .hero__scroll span:last-child { font-size:1.3rem; }
+  @media(max-width:740px){
+    .hero__inner { padding-top:6.5rem; padding-bottom:1.4rem; }
+    .hero__copy { padding-top:clamp(8rem,22vh,15rem); }
+    .hero__headline { font-size:clamp(2.9rem,11.5vw,5.1rem); line-height:1; }
+    .hero__eyebrow { font-size:.66rem; letter-spacing:.12em; }
+    .hero__subtitle { max-width:31ch; }
+    .hero__shade { background:linear-gradient(to bottom,#0a0f0d66 0%,transparent 28%,#0a0f0d33 47%,#060907db 100%); }
+    .hero__actions { gap:.45rem; }
+    .hero__cta,.hero__secondary { min-height:3.2rem; }
+    .hero__cta { padding:.85rem 1rem; }
   }
-  .hero__title {
-    font-size: var(--t-3xl);
-    font-weight: 600;
-    line-height: 0.92;
-    letter-spacing: -0.035em;
-    max-width: 12ch;
-    text-shadow: 0 2px 30px rgba(0,0,0,0.25);
+  @media(max-height:630px) and (min-width:741px){
+    .hero__copy { padding-top:7rem; }
+    .hero__headline { font-size:clamp(3.5rem,5vw,5.5rem); }
   }
-  .hero__title > span { display: inline-block; margin-right: 0.22em; }
-  .hero__meta { display: grid; gap: 0.35rem; }
-  .hero__name {
-    font-family: var(--display);
-    font-size: var(--t-md);
-    font-weight: 600;
-    letter-spacing: -0.01em;
-  }
-  .hero__desc {
-    font-size: var(--t-base);
-    color: rgba(247,243,236,0.8);
-    max-width: 40ch;
-  }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-
-  .hero__bottom {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 1.5rem;
-  }
-  .hero__scroll {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    text-decoration: none;
-    font-size: var(--t-xs);
-    letter-spacing: 0.08em;
-    color: rgba(247,243,236,0.75);
-  }
-  .hero__scroll-line {
-    width: 1px;
-    height: 32px;
-    background: currentColor;
-    transform-origin: top;
-    animation: scrollpulse 2.2s var(--ease) infinite;
-  }
-  @keyframes scrollpulse {
-    0% { transform: scaleY(0); opacity: 0; }
-    40% { transform: scaleY(1); opacity: 1; }
-    100% { transform: scaleY(1) translateY(100%); opacity: 0; }
-  }
-
-  .hero__sound {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    background: rgba(28,26,23,0.45);
-    border: 1px solid rgba(247,243,236,0.4);
-    color: var(--paper);
-    border-radius: 999px;
-    padding: 0.55rem 0.95rem;
-    font-size: var(--t-xs);
-    cursor: pointer;
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-  }
-  .hero__sound-icon {
-    width: 14px; height: 14px;
-    display: flex; align-items: flex-end; gap: 2px;
-  }
-  .hero__sound-icon::before, .hero__sound-icon::after {
-    content: ''; width: 3px; background: currentColor; height: 40%;
-  }
-  .hero__sound-icon::after { height: 100%; }
-  .hero__sound[aria-pressed="true"] .hero__sound-icon::before { animation: bars 0.8s ease-in-out infinite alternate; }
-  .hero__sound[aria-pressed="true"] .hero__sound-icon::after { animation: bars 0.6s ease-in-out infinite alternate-reverse; }
-  @keyframes bars { from { height: 30%; } to { height: 100%; } }
-
-  @media (max-width: 600px) {
-    .hero__actions :global(.btn) { width: 100%; justify-content: center; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero__scroll-line { animation: none; }
-  }
+  @media(prefers-reduced-motion:reduce){ .hero__video,.hero__cta,.hero__secondary { transition:none; } }
 </style>
 
 <script>
-  const hero = document.querySelector<HTMLElement>('[data-hero]');
-  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
-  const soundBtn = document.querySelector<HTMLButtonElement>('[data-hero-sound]');
-  const soundLabel = document.querySelector<HTMLElement>('[data-hero-sound-label]');
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const heroRoot = document.querySelector<HTMLElement>('[data-hero]');
+  const player = heroRoot?.querySelector<HTMLVideoElement>('[data-hero-video]');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const saveData = (navigator as any).connection?.saveData === true;
-
-  function loadAndPlay() {
-    if (!video || !hero) return;
-    const isSmall = window.matchMedia('(max-width: 768px)').matches;
-    const mp4 = isSmall ? video.dataset.srcMobile : video.dataset.srcDesktop;
-    const webm = video.dataset.srcWebm;
-
-    if (webm) {
-      const s = document.createElement('source');
-      s.src = webm; s.type = 'video/webm';
-      video.appendChild(s);
+  if (heroRoot && player && !reducedMotion && !saveData) {
+    const mobile = window.matchMedia('(max-width: 740px)').matches;
+    const mp4 = mobile ? player.dataset.srcMobile : player.dataset.srcDesktop;
+    if (player.dataset.srcWebm) {
+      const source = document.createElement('source');
+      source.src = player.dataset.srcWebm;
+      source.type = 'video/webm';
+      player.appendChild(source);
     }
     if (mp4) {
-      const s = document.createElement('source');
-      s.src = mp4; s.type = 'video/mp4';
-      video.appendChild(s);
+      const source = document.createElement('source');
+      source.src = mp4;
+      source.type = 'video/mp4';
+      player.appendChild(source);
     }
-    video.muted = true; // required for autoplay
-    video.load();
-
-    const onPlaying = () => {
-      hero.classList.add('is-playing');
-      if (soundBtn) soundBtn.hidden = false;
-    };
-    video.addEventListener('playing', onPlaying, { once: true });
-    video.addEventListener('error', () => hero.classList.remove('is-playing'), { once: true });
-
-    video.play().catch(() => {
-      // Autoplay blocked or no source yet: stay on the poster silently.
-      hero.classList.remove('is-playing');
-    });
+    if (player.querySelector('source')) {
+      player.muted = true;
+      player.addEventListener('playing', () => heroRoot.classList.add('is-playing'));
+      player.addEventListener('error', () => heroRoot.classList.remove('is-playing'));
+      const play = () => player.play().catch(() => {});
+      const init = () => { player.load(); play(); };
+      if (document.readyState === 'complete') init();
+      else window.addEventListener('load', init, { once: true });
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(([entry]) => {
+          if (!entry.isIntersecting) player.pause();
+          else if (document.readyState === 'complete') play();
+        }, { threshold: .08 });
+        observer.observe(heroRoot);
+      }
+    }
   }
-
-  // Don't autoplay for reduced motion or data saver; keep the poster.
-  if (!reduce && !saveData && video) {
-    if (document.readyState === 'complete') loadAndPlay();
-    else window.addEventListener('load', loadAndPlay, { once: true });
-
-    // Pause when scrolled out of view to save battery
-    const io = new IntersectionObserver(
-      ([e]) => {
-        if (!video.src && !video.querySelector('source')) return;
-        if (e.isIntersecting) video.play().catch(() => {});
-        else video.pause();
-      },
-      { threshold: 0.05 },
-    );
-    if (hero) io.observe(hero);
-  }
-
-  // Sound toggle
-  soundBtn?.addEventListener('click', () => {
-    if (!video) return;
-    const on = video.muted;
-    video.muted = !on;
-    soundBtn.setAttribute('aria-pressed', String(on));
-    if (soundLabel) soundLabel.textContent = on ? 'Sound off' : 'Sound on';
-    if (on) video.play().catch(() => {});
-  });
 </script>

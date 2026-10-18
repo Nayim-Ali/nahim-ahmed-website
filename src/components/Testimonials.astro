@@ -4,10 +4,11 @@
  * Add testimonials in src/content/content.ts. Each can have quote, name, role, organisation, photo.
  */
 import { testimonials } from '../content/content';
-const featured = testimonials.items.find((t) => t.featured) || testimonials.items[0];
-const rest = testimonials.items.filter((t) => t !== featured);
+const approved = testimonials.items.filter((t) => !t.placeholder && Boolean(t.quote?.trim()) && Boolean(t.name?.trim()) && !/\[|\]/.test(t.quote + t.name));
+const featured = approved.find((t) => t.featured) || approved[0];
+const rest = approved.filter((t) => t !== featured);
 ---
-<section id="testimonials" class="section section--cream tst" aria-labelledby="tst-title">
+<section hidden={approved.length === 0} id="testimonials" class="section section--cream tst" aria-labelledby="tst-title">
   <div class="wrap">
     <h2 id="tst-title" class="tst__title reveal">{testimonials.heading}</h2>
 

@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import pages from '../content/data/pages.json';
+import BookingForm from '../components/BookingForm.astro';
+import FAQ from '../components/FAQ.astro';
+---
+<Base title={pages.contact.seoTitle} description={pages.contact.seoDescription}>
+  <PageHero page="contact" />
+  <BookingForm />
+  <FAQ />
+</Base>

@@ -1,8 +1,9 @@
 ---
 import { media } from '../content/content';
 import MediaCard from './MediaCard.astro';
-const featured = media.items.find((m) => m.featured);
-const rest = media.items.filter((m) => m !== featured);
+const visibleItems = media.items.filter((m) => !m.placeholder && !m.title.startsWith('['));
+const featured = visibleItems.find((m) => m.featured);
+const rest = visibleItems.filter((m) => m !== featured);
 ---
 <section id="media" class="section media" aria-labelledby="media-title">
   <div class="wrap">

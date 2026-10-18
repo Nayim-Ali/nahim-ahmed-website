@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import pages from '../content/data/pages.json';
+import Speaking from '../components/Speaking.astro';
+import Keynote from '../components/Keynote.astro';
+import Services from '../components/Services.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FinalCta from '../components/FinalCta.astro';
+---
+<Base title={pages.speaking.seoTitle} description={pages.speaking.seoDescription}>
+  <PageHero page="speaking" />
+  <Speaking />
+  <Keynote />
+  <Services />
+  <Testimonials />
+  <FinalCta />
+</Base>

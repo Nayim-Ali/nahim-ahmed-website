@@ -1,6 +1,7 @@
 ---
 import { about } from '../content/content';
 import { site } from '../content/site';
+const verifiedColumns = about.columns.map(col => ({ ...col, items: col.items.filter((item) => !item.includes('[') && !item.includes(']')) })).filter(col => col.items.length > 0);
 ---
 
 <section id="about" class="section about" aria-labelledby="about-title">
@@ -17,7 +18,7 @@ import { site } from '../content/site';
       <p class="about__post reveal" style="--d:120ms">{site.name}, {site.postNominals}</p>
 
       <dl class="about__cols">
-        {about.columns.map((col, i) => (
+        {verifiedColumns.map((col, i) => (
           <div class="about__col reveal" style={`--d:${160 + i * 80}ms`}>
             <dt>{col.title}</dt>
             {col.items.map((item) => <dd>{item}</dd>)}

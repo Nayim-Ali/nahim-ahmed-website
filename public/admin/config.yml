@@ -460,3 +460,45 @@ collections:
             fields:
               - { label: "Label", name: label, widget: string }
               - { label: "Link (href)", name: href, widget: string }
+
+      # Page-specific introductions and search descriptions
+      - label: "Page Introductions & SEO"
+        name: pages
+        file: "src/content/data/pages.json"
+        fields:
+          - label: "About Page"
+            name: about
+            widget: object
+            fields:
+              - { label: "Small Label", name: eyebrow, widget: string }
+              - { label: "Page Headline", name: headline, widget: string }
+              - { label: "Introduction", name: description, widget: text }
+              - { label: "SEO Page Title", name: seoTitle, widget: string }
+              - { label: "SEO Description", name: seoDescription, widget: text }
+          - label: "Keynote Speaking Page"
+            name: speaking
+            widget: object
+            fields:
+              - { label: "Small Label", name: eyebrow, widget: string }
+              - { label: "Page Headline", name: headline, widget: string }
+              - { label: "Introduction", name: description, widget: text }
+              - { label: "SEO Page Title", name: seoTitle, widget: string }
+              - { label: "SEO Description", name: seoDescription, widget: text }
+          - label: "Resources Page"
+            name: resources
+            widget: object
+            fields:
+              - { label: "Small Label", name: eyebrow, widget: string }
+              - { label: "Page Headline", name: headline, widget: string }
+              - { label: "Introduction", name: description, widget: text }
+              - { label: "SEO Page Title", name: seoTitle, widget: string }
+              - { label: "SEO Description", name: seoDescription, widget: text }
+          - label: "Contact Page"
+            name: contact
+            widget: object
+            fields:
+              - { label: "Small Label", name: eyebrow, widget: string }
+              - { label: "Page Headline", name: headline, widget: string }
+              - { label: "Introduction", name: description, widget: text }
+              - { label: "SEO Page Title", name: seoTitle, widget: string }
+              - { label: "SEO Description", name: seoDescription, widget: text }
